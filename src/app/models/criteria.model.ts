@@ -160,4 +160,16 @@ export const CRITERIA = [
     documents: {understanding: 'consistent-behavior-receive-focus'},
     level: 'A'
   },
+  {
+    id: '3.3.1',
+    name: 'Error Identification',
+    documents: {understanding: 'minimize-error-identified'},
+    level: 'A'
+  },
+  {
+    id: '3.3.3',
+    name: 'Error Suggestions',
+    documents: {understanding: 'minimize-error-suggestions'},
+    level: 'AA'
+  },
 ]

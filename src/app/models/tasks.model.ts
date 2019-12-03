@@ -77,7 +77,7 @@ export const TASKS: Task[] = [
     tasks: [{text: `Ensure sign language interpretation is provided for all prerecorded audio content in synchronized media.`}]
   },
   {
-    name: 'Markup',
+    name: 'Meaningful Semantic Markup',
     criteria: ['1.3.1'],
     intent: 'Screen readers read the DOM directly. The HTML must communicate meaning without the help of CSS.',
     tasks: [
@@ -91,7 +91,7 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'Color',
+    name: 'Reliance on Color',
     criteria: ['1.4.1'],
     intent: `Relying on colour excludes colorblind and non-sighted users.`,
     tasks: [{
@@ -102,7 +102,7 @@ export const TASKS: Task[] = [
     }]
   },
   {
-    name: 'On Focus',
+    name: 'No Change on Focus',
     criteria: ['3.2.1'],
     intent: `Not all users can use a mouse, be it due to visual or movement impairment. Keyboard-only users rely on using <code>TAB</code> to change focus and navigate through the site, which you can try in this application. If simply navigating causes a modal to pop up, the user becomes disoriented, just like if a modal appeared as soon as you simply hovered over a button. Likewise, taking control of focus is equivalent to a site taking control of your mouse.`,
     tasks: [{
@@ -111,6 +111,24 @@ export const TASKS: Task[] = [
         {text: `"Change of context" is defined as changes to the user agent, viewport, focus, or any content that changes the meaning of the page.`},
         {text: `A tooltip appearing when a button receives focus does <b>not</b> violate this criteria, unless focus is then put on the tooltip.`},
         {text: `A modal/lightbox popping up when a button receives focus <b>does</b> violate this criteria.`}
+      ]
+    }]
+  },
+  {
+    name: 'Identify User Errors',
+    criteria: ['3.3.1'],
+    tasks: [
+      {text: `Ensure that if there is a problem with user input (in a form, for example), it is identified and explained to the user through text.`}
+    ]
+  },
+  {
+    name: 'Suggest Corrections',
+    criteria: ['3.3.3'],
+    tasks: [{
+      text: `Ensure that if there is a problem with user input (in a form, for example), there are suggestions for how to correct it, if possible.`,
+      subtasks: [
+        {text: `If the user is asked to type in a particular month, but the app only accepts the month by name, and the user writes '12', inform the user of the desired format (in this case, 'December').`},
+        {text: `Exceptions are made if doing so jeopardizes security or functionality.`}
       ]
     }]
   }

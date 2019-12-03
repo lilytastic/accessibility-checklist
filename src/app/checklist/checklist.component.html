@@ -6,7 +6,7 @@
   <p class="paragraph">This is everything you can do to improve accessibility in our applications.</p>
 </div>
 
-<button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks" [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task.level === 'A'" [class.optional]="task.level === 'AAA'">
+<button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks" [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
   <!--
   <div class="d-flex justify-content-between mb-1">
     <div class="d-flex align-items-start">

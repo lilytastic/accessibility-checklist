@@ -37,14 +37,16 @@ export class ChecklistComponent implements OnInit {
       .reduce((acc, curr) => {acc = [...acc, ...curr.filter(x => !acc.find(y => y === x))]; return acc;}, []);
     this.tasks = TASKS
       .filter(x => applicableCriteria.filter(c => x.criteria.includes(c)).length)
-      .map(x => ({...x, level: this.criteria[x.criteria[0]].level}));
+      .map(x => ({...x, level: this.criteria[x.criteria[0]] ? this.criteria[x.criteria[0]].level : ''}));
     // .sort((a, b) => (this.levelPriority[(this.criteria[a.criteria]||{level:'A'}).level] - this.levelPriority[(this.criteria[b.criteria]||{level:'A'}).level]));
-    this.tasks.push({
-      name: 'And lastly...',
-      intent: `I don't understand the question.`,
-      tasks: [{text: 'Give Spark team a pizza.', subtasks: [{text: `Just cheese is fine.`}]}],
-      criteria: []
-    });
+    if (this.tasks.length) {
+      this.tasks.push({
+        name: 'Lastly...',
+        intent: `I don't understand the question.`,
+        tasks: [{text: 'Give Spark team a pizza.', subtasks: [{text: `Just cheese is fine.`}]}],
+        criteria: []
+      });
+    }
   }
 
   toggleExpand(name: string) {
