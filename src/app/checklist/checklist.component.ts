@@ -26,17 +26,20 @@ export class ChecklistComponent implements OnInit {
     window.localStorage.setItem('itemStatus', JSON.stringify(this.itemStatus));
   }
 
+  get selectedRoles() {
+    return Object.keys(this.roleStatus).filter(x => this.roleStatus[x]);
+  }
+
   ngOnInit() {
     this.criteria = {};
     CRITERIA.forEach(x => this.criteria[x.id] = x);
     this.roleStatus = JSON.parse(window.localStorage.getItem('roles') || '{}');
     this.itemStatus = JSON.parse(window.localStorage.getItem('itemStatus') || '{}');
-    const applicableCriteria = Object.keys(this.roleStatus)
-      .filter(x => this.roleStatus[x])
+    const applicableCriteria = this.selectedRoles
       .map(x => ROLES.find(y => y.id === x).applicableCriteria)
       .reduce((acc, curr) => {acc = [...acc, ...curr.filter(x => !acc.find(y => y === x))]; return acc;}, []);
     this.tasks = TASKS
-      .filter(x => applicableCriteria.filter(c => x.criteria.includes(c)).length)
+      .filter(x => !applicableCriteria.length || applicableCriteria.filter(c => x.criteria.includes(c)).length)
       .map(x => ({...x, level: this.criteria[x.criteria[0]] ? this.criteria[x.criteria[0]].level : ''}));
     // .sort((a, b) => (this.levelPriority[(this.criteria[a.criteria]||{level:'A'}).level] - this.levelPriority[(this.criteria[b.criteria]||{level:'A'}).level]));
     if (this.tasks.length) {

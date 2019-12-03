@@ -1,51 +1,54 @@
 
-<a [routerLink]="['/', 'setup']" class="btn p-0 btn-lg btn-link"><&nbsp; My Roles</a>
+<a [routerLink]="['/', 'setup']" class="btn p-0 btn-lg btn-link"><i class="fas fa-chevron-left"></i>&nbsp; My Roles</a>
 
 <div class="text-center mt-3 mb-4">
   <h2>My Checklist</h2>
-  <p class="paragraph">This is everything you can do to improve accessibility in our applications.</p>
+  <p class="paragraph" [innerHTML]="selectedRoles.length ? 'This is everything you can do to improve accessibility in our applications.' : 'These are all the tasks that will improve accessibility in our applications. <br/> Select one or more roles to see a more personalized list.'">
+  </p>
 </div>
 
-<button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks" [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
-  <!--
-  <div class="d-flex justify-content-between mb-1">
-    <div class="d-flex align-items-start">
-      <h3 class="heading-3">
-        {{task.name}}
-      </h3>
-    </div>
-    <div class="d-flex small align-items-center">
-      <div class="text-secondary">
-        WCAG {{task.criteria}} (Level {{criteria[task.criteria]?.level || '?'}})
+<div class="pb-5">
+  <button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks" [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
+    <!--
+    <div class="d-flex justify-content-between mb-1">
+      <div class="d-flex align-items-start">
+        <h3 class="heading-3">
+          {{task.name}}
+        </h3>
+      </div>
+      <div class="d-flex small align-items-center">
+        <div class="text-secondary">
+          WCAG {{task.criteria}} (Level {{criteria[task.criteria]?.level || '?'}})
+        </div>
       </div>
     </div>
-  </div>
-  -->
-  <div class="d-flex mb-2 small justify-content-between align-items-center">
-    <div class="d-flex align-items-start text-secondary">
-      <h3 class="heading-3">
-        {{task.name}}
-      </h3>
-      <div class="ml-1 btn btn-text text-secondary btn-sm">
-        <i class="fas fa-fw fa-{{itemStatus[task.name]?.expanded ? 'caret-down' : 'caret-right'}}"></i>
+    -->
+    <div class="d-flex mb-2 small justify-content-between align-items-center">
+      <div class="d-flex align-items-start text-secondary">
+        <h3 class="heading-3">
+          {{task.name}}
+        </h3>
+        <div class="ml-1 btn btn-text text-secondary btn-sm">
+          <i class="fas fa-fw fa-{{itemStatus[task.name]?.expanded ? 'caret-down' : 'caret-right'}}"></i>
+        </div>
+        <!--
+        <div class="btn btn-text text-secondary btn-sm ml-3">
+          Click to {{expanded[task.name] ? 'collapse' : 'expand'}}
+        </div>
+        -->
       </div>
-      <!--
-      <div class="btn btn-text text-secondary btn-sm ml-3">
-        Click to {{expanded[task.name] ? 'collapse' : 'expand'}}
+      <div class="text-secondary" *ngIf="task.criteria.length">
+        WCAG
+        <span *ngFor="let _criteria of task.criteria; let i = index">
+          <span *ngIf="i > 0">&middot;</span>
+          {{_criteria}} ({{criteria[_criteria]?.level || '?'}})
+        </span>
       </div>
-      -->
     </div>
-    <div class="text-secondary" *ngIf="task.criteria.length">
-      WCAG
-      <span *ngFor="let _criteria of task.criteria; let i = index">
-        <span *ngIf="i > 0">&middot;</span>
-        {{_criteria}} ({{criteria[_criteria]?.level || '?'}})
-      </span>
-    </div>
-  </div>
-  <ng-container *ngTemplateOutlet="(itemStatus[task.name]?.expanded ? full : basic); context: { task: task }">
-  </ng-container>
-</button>
+    <ng-container *ngTemplateOutlet="(itemStatus[task.name]?.expanded ? full : basic); context: { task: task }">
+    </ng-container>
+  </button>
+</div>
 
 <ng-template #full let-task="task">
   <ul>
@@ -89,6 +92,8 @@
 
 <ng-template #basic let-task="task">
   <ul>
-    <li *ngFor="let text of task.tasks" [innerHTML]="text.text"></li>
+    <li *ngFor="let text of task.tasks">
+      <span [innerHTML]="text.text"></span> <span class="small d-inline-block ml-2 text-secondary" *ngIf="text.subtasks"><i class="fas small fa-ellipsis-h"></i></span>
+    </li>
   </ul>
 </ng-template>

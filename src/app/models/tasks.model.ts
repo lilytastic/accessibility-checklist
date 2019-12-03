@@ -8,26 +8,26 @@ export interface Task {
 
 export const TASKS: Task[] = [
   {
-    name: 'Alt Text',
+    name: 'Descriptive Alt Text',
     criteria: ['1.1.1'],
     intent: `Visually-impaired users can't see pictures.`,
     tasks: [{
       text: `Ensure all images have an <code>alt</code> attribute.`,
       subtasks: [
         {text: `Any image that isn't purely for decoration must have descriptive alt text (<code>alt="A football"</code>).`},
-        {text: `Decorative images can have null alt text (<code>alt=""</code>) or be implemented with <code>background-image</code>.`}
+        {text: `Purely decorative images can have null alt text (<code>alt=""</code>) or be implemented with <code>background-image</code>.`}
       ]
     }]
   },
   {
-    name: 'Labels',
+    name: 'Descriptive Labels',
     criteria: ['1.1.1'],
-    intent: `Visual communication (like icons) won't help all our users. Likewise, the context of a form input may be obvious to a sighted user, but not to others. Labels, when used properly, directly communicate the meaning of buttons and inputs.`,
+    intent: `Visual non-text communication (like icons) excludes non-sighted users. Likewise, the context of a form input may be obvious to a sighted user, but not to others. Placeholder text is often ignored by screen readers. Labels, when used properly, directly communicate the meaning of buttons and inputs in a way that is accessible and unambiguous.`,
     tasks: [
       {
         text: `Ensure form buttons have descriptive text.`,
         subtasks: [
-          {text: `If a cancel button is simply an icon like X or >, give it an alternative label like "Cancel" or "Next".`}
+          {text: `If a cancel button is simply an icon like X or >, give it an alternate label like "Cancel" or "Next".`}
         ]
       },
       {
