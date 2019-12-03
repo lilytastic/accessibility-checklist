@@ -1,14 +1,29 @@
 @import '../../styles.scss';
 
 .heading-3 {
-    font-size: 1.3rem;
+    font-size: 1.2em;
+    margin: 0;
+}
+
+.btn-text {
+    padding: 0;
 }
 
 .task {
     position: relative;
+    font-size: 1.1em;
     padding: 15px 15px 15px 25px;
     border-radius: 4px;
+    text-align: left;
+    border: none;
+    background: none !important;
+    width: 100%;
+    color: #222222 !important;
     box-shadow: inset 0 0 0 1px $color-white700;
+
+    &:hover {
+        background-color: $color-white300 !important;
+    }
 
     &:before {
         content: '';
@@ -30,5 +45,9 @@
     &.optional::before {
         background-color: $color-green300;
         box-shadow: inset 0 0 0 1px $color-green500;
+    }
+    &.special::before {
+        background-color: $color-violet500;
+        box-shadow: inset 0 0 0 1px $color-violet700;
     }
 }

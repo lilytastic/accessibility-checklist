@@ -3,34 +3,45 @@
 .list {
     list-style-type: none;
     padding-left: 0;
-    max-width: 600px;
     margin: 0 auto;
 }
 
-.option {
-    background: transparent;
-    border-color: transparent;
-    cursor: pointer;
-    width: 100%;
-    padding: 11px 15px;
-    font-size: 1.3em;
-    text-align: left;
-    border-radius: 6px;
-    display: flex;
-    color: #555555;
-    transition: background-color .05s ease-in-out;
+.hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
 
-    &:hover, &:focus {
-        background-color: #eeeeee;
-    }
+.list {
+    .option {
+        background: transparent;
+        border-color: transparent;
+        cursor: pointer;
+        width: 100%;
+        padding: 11px 15px;
+        font-size: 1.1em;
+        text-align: left;
+        border-radius: 6px;
+        border: none;
+        display: flex;
+        color: #555555;
+        background-color: transparent;
 
-    &.active {
-        font-weight: 600;
-        color: #111111;
-        .checkmark {
-            border-color: transparent;
-            background-color: $color-green500;
-            &::after {opacity: 1; transform: translate(-50%, -50%) scale(1); color: white;}
+        &:hover, &:focus {
+            background-color: $color-blue100;
+            color: $color-blue700;
+            .checkmark {
+                border-color: transparent;
+            }
+        }
+
+        &.active {
+            color: white;
+            background-color: $color-blue500;
+            font-weight: 600;
+            .checkmark {
+                border-color: transparent;
+                &::after {opacity: 1; transform: translate(-50%, -50%) scale(1); color: white;}
+            }
         }
     }
 }
@@ -40,14 +51,14 @@
     border-radius: 4px;
     height: 25px;
     width: 25px;
-    margin-right: 20px;
+    margin-right: 25px;
     flex: 0 0 auto;
     position: relative;
-    margin-top: 3px;
-    transition: background-color .15s ease-in-out;
+    transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
 
     &::after {
         content: '\2713';
+        font-size: 20px;
         position: absolute;
         line-height: 1em;
         margin-top: 1px;

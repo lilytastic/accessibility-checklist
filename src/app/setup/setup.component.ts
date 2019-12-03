@@ -9,6 +9,7 @@ import { ROLES } from '../models/roles.model';
 export class SetupComponent implements OnInit {
 
   roleStatus: { [id: string]: boolean } = {};
+  showHeaderNavigation = false;
 
   roles: any[] = ROLES;
 
@@ -20,6 +21,9 @@ export class SetupComponent implements OnInit {
 
   ngOnInit() {
     this.roleStatus = JSON.parse(window.localStorage.getItem('roles') || '{}');
+    if (this.selectedRoles.length) {
+      this.showHeaderNavigation = true;
+    }
   }
 
   toggleRole(id: string) {

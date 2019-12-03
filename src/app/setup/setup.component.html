@@ -1,4 +1,8 @@
-<div class="text-center mb-4">
+<div class="w-100 text-right">
+  <a [class.hidden]="!showHeaderNavigation" [class.disabled]="selectedRoles.length <= 0" [routerLink]="['/', 'checklist']" class="btn p-0 btn-lg btn-link">My Checklist&nbsp; ></a>
+</div>
+
+<div class="text-center mt-3 mb-4">
   <h2 class="heading">
     Check all that apply
   </h2>
@@ -8,8 +12,8 @@
 </div>
 
 <ul class="list mb-4">
-  <li *ngFor="let role of roles">
-    <button class="option" (click)="toggleRole(role.id)" [class.active]="roleStatus[role.id]">
+  <li *ngFor="let role of roles" class="mb-1">
+    <button class="option btn btn-primary" (click)="toggleRole(role.id)" [class.active]="roleStatus[role.id]">
       <div class="checkmark"></div>
       <div>
         {{role.description}}
@@ -21,7 +25,7 @@
   </li>
 </ul>
 
-<div class="text-center mt-5 mb-4">
+<div class="text-center mt-5 mb-4" *ngIf="!showHeaderNavigation">
   <a [routerLink]="['/', 'checklist']" class="btn btn-lg btn-primary" [class.disabled]="selectedRoles.length <= 0">Proceed to My Checklist</a>
 </div>
 

@@ -87,6 +87,12 @@ ul {
     padding-left: 20px;
 }
 
+.task:not(.expanded) {
+    ul ul {
+        display: none;
+    }
+}
+
 .btn {
     &-primary {
         background-color: $color-blue500;
@@ -99,7 +105,7 @@ ul {
             &:focus {
                 box-shadow: 0 0 0 3px rgba($color-blue500, 0.5);
             }
-            &:active {
+            &:active, &.active {
                 background-color: $color-blue900;
                 border-color: $color-blue900;
             }

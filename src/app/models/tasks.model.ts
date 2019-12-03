@@ -37,7 +37,7 @@ export const TASKS: Task[] = [
           Ensure all images have an <code>alt</code> attribute.
           <ul>
             <li>Purely decorative images can have null alt text (<code>alt=""</code>) or be implemented with <code>background-image</code>.</li>
-            <li>Images that are <b>not</b> purely decorative must have descriptive alt text (<code>alt="A football"</code>).</li>
+            <li>Images that have some function must have descriptive alt text (<code>alt="A football"</code>).</li>
           </ul>
         </li>
       </ul>
@@ -91,12 +91,17 @@ export const TASKS: Task[] = [
     description: `
       <ul>
         <li>
-          Use meaningful semantic markup whenever possible (<code>h2</code> for second-level headings, <code>a</code> for links, <code>button</code> for buttons, etc.)        
-        </li>
-        <li>
-          Do <b>not</b> rely on tags (<code>h1</code>, <code>h2</code>, <code>h3</code>, etc.), for styling.
+          Ensure meaningful semantic markup is used whenever possible
+          <ul>
+            <li>
+              This includes <code>h2</code> for second-level headings, <code>a</code> for links, <code>button</code> for buttons, etc.
+            </li>
+            <li>
+              Do <b>not</b> rely on tags (<code>h1</code>, <code>h2</code>, <code>h3</code>, etc.), for styling.
+            </li>
+          <ul>
         </li>
       </ul>
     `
-  },
+  }
 ];
