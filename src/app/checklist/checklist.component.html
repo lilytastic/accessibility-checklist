@@ -1,3 +1,19 @@
-<p>
-  checklist works!
-</p>
+
+<a [routerLink]="['/', 'setup']" class="btn p-0 btn-lg btn-link"><&nbsp; Go Back</a>
+
+<div class="text-center mt-3 mb-4">
+  <h2>My Checklist</h2>
+  <p class="paragraph">This is everything you can do to improve accessibility in our applications.</p>
+</div>
+
+<div class="task mb-3" *ngFor="let task of tasks" [class.critical]="criteria[task.criteria]?.level === 'A'" [class.optional]="criteria[task.criteria]?.level === 'AAA'">
+  <div class="d-flex justify-content-between">
+    <h3 class="heading-3">
+      {{task.name}}
+    </h3>
+    <div class="small text-secondary">
+      WCAG {{task.criteria}} (Level {{criteria[task.criteria]?.level || '?'}})
+    </div>
+  </div>
+  <div [innerHTML]="task.description"></div>
+</div>

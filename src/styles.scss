@@ -81,3 +81,32 @@ $color-black900: nth($palette-blacks, 5);
 html, body {
     font-family: 'proxima-soft', Helvetica, sans-serif;
 }
+
+ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.btn {
+    &-primary {
+        background-color: $color-blue500;
+        border-color: $color-blue500;
+        &:not(:disabled):not(.disabled) {
+            &:hover, &:focus {
+                background-color: $color-blue700;
+                border-color: $color-blue700;
+            }
+            &:focus {
+                box-shadow: 0 0 0 3px rgba($color-blue500, 0.5);
+            }
+            &:active {
+                background-color: $color-blue900;
+                border-color: $color-blue900;
+            }
+        }
+    }
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}

@@ -1,8 +1,13 @@
-<h2 class="heading">
-  Check all that apply
-</h2>
+<div class="text-center mb-4">
+  <h2 class="heading">
+    Check all that apply
+  </h2>
+  <p class="paragraph">
+    This will let us personalize your checklist.
+  </p>
+</div>
 
-<ul class="list">
+<ul class="list mb-4">
   <li *ngFor="let role of roles">
     <button class="option" (click)="toggleRole(role.id)" [class.active]="roleStatus[role.id]">
       <div class="checkmark"></div>
@@ -16,7 +21,7 @@
   </li>
 </ul>
 
-<div class="text-center mt-4">
-  <button class="btn btn-lg btn-primary" [disabled]="selectedRoles.length <= 0">Proceed</button>
+<div class="text-center mt-5 mb-4">
+  <a [routerLink]="['/', 'checklist']" class="btn btn-lg btn-primary" [class.disabled]="selectedRoles.length <= 0">Proceed to My Checklist</a>
 </div>
 

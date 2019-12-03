@@ -1,6 +1,12 @@
+@import '../styles.scss';
+
 .content {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    padding-top: 100px;
+    padding: 0 10px;
+    padding-top: 20px;
+    @media (min-width: 992px) {
+        padding-top: 60px;
+    }
 }
