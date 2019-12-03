@@ -1,0 +1,22 @@
+<h2 class="heading">
+  Check all that apply
+</h2>
+
+<ul class="list">
+  <li *ngFor="let role of roles">
+    <button class="option" (click)="toggleRole(role.id)" [class.active]="roleStatus[role.id]">
+      <div class="checkmark"></div>
+      <div>
+        {{role.description}}
+      </div>
+    </button>
+    <!--
+    <input type="checkbox" name="analysis" value="false">{{role.description}}
+    -->
+  </li>
+</ul>
+
+<div class="text-center mt-4">
+  <button class="btn btn-lg btn-primary" [disabled]="selectedRoles.length <= 0">Proceed</button>
+</div>
+

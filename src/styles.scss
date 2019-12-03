@@ -1,0 +1,83 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://use.typekit.net/zkr6tpy.css');
+
+$palette-blues: #d4eff9 #68c7e9 #26afdf #027baf #13576f;
+
+$palette-violets: #f0e3f6 #cb9edf #b474d1 #905da7 #5a3a68;
+
+$palette-greens: #e6f3d2 #a8d563 #82c31f #44820d #41610f;
+
+$palette-yellows: #fff5d5 #fedc6e #fdcd2f #8b710b #665213;
+
+$palette-reds: #ffdae2 #ff7a97 #ff446c #d23859 #802035;
+
+$palette-oranges: #fce6d1 #f6a660 #f2801b #b15d13 #79400d;
+
+$palette-whites: #ffffff #fafafa #f1f1f1 #e1e1e1 #cccccc;
+
+$palette-greys: #b3b3b3 #aeaeae #828282 #737373 #484848;
+
+$palette-blacks: #323232 #262626 #1f1f1f #1a1a1a #121212;
+
+/*------------------------------------*\
+    #COLOR DEFINITIONS
+\*------------------------------------*/
+
+$color-blue100: nth($palette-blues, 1);
+$color-blue300: nth($palette-blues, 2);
+$color-blue500: nth($palette-blues, 3);
+$color-blue700: nth($palette-blues, 4);
+$color-blue900: nth($palette-blues, 5);
+
+$color-violet100: nth($palette-violets, 1);
+$color-violet300: nth($palette-violets, 2);
+$color-violet500: nth($palette-violets, 3);
+$color-violet700: nth($palette-violets, 4);
+$color-violet900: nth($palette-violets, 5);
+
+$color-green100: nth($palette-greens, 1);
+$color-green300: nth($palette-greens, 2);
+$color-green500: nth($palette-greens, 3);
+$color-green700: nth($palette-greens, 4);
+$color-green900: nth($palette-greens, 5);
+
+$color-yellow100: nth($palette-yellows, 1);
+$color-yellow300: nth($palette-yellows, 2);
+$color-yellow500: nth($palette-yellows, 3);
+$color-yellow700: nth($palette-yellows, 4);
+$color-yellow900: nth($palette-yellows, 5);
+
+$color-red100: nth($palette-reds, 1);
+$color-red300: nth($palette-reds, 2);
+$color-red500: nth($palette-reds, 3);
+$color-red700: nth($palette-reds, 4);
+$color-red900: nth($palette-reds, 5);
+
+$color-orange100: nth($palette-oranges, 1);
+$color-orange300: nth($palette-oranges, 2);
+$color-orange500: nth($palette-oranges, 3);
+$color-orange700: nth($palette-oranges, 4);
+$color-orange900: nth($palette-oranges, 5);
+
+$color-white100: nth($palette-whites, 1);
+$color-white300: nth($palette-whites, 2);
+$color-white500: nth($palette-whites, 3);
+$color-white700: nth($palette-whites, 4);
+$color-white900: nth($palette-whites, 5);
+
+$color-grey100: nth($palette-greys, 1);
+$color-grey300: nth($palette-greys, 2);
+$color-grey500: nth($palette-greys, 3);
+$color-grey700: nth($palette-greys, 4);
+$color-grey900: nth($palette-greys, 5);
+
+$color-black100: nth($palette-blacks, 1);
+$color-black300: nth($palette-blacks, 2);
+$color-black500: nth($palette-blacks, 3);
+$color-black700: nth($palette-blacks, 4);
+$color-black900: nth($palette-blacks, 5);
+
+html, body {
+    font-family: 'proxima-soft', Helvetica, sans-serif;
+}
