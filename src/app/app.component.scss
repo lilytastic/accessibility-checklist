@@ -1,5 +1,11 @@
 @import '../styles.scss';
 
+:host {
+    background-color: $color-white300;
+    display: block;
+    min-height: 100vh;
+}
+
 .content {
     width: 100%;
     max-width: 800px;

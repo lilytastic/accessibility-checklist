@@ -6,7 +6,7 @@
   <p class="paragraph">This is everything you can do to improve accessibility in our applications.</p>
 </div>
 
-<button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks" [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!criteria[task.criteria]" [class.critical]="criteria[task.criteria]?.level === 'A'" [class.optional]="criteria[task.criteria]?.level === 'AAA'">
+<button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks" [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task.level === 'A'" [class.optional]="task.level === 'AAA'">
   <!--
   <div class="d-flex justify-content-between mb-1">
     <div class="d-flex align-items-start">
@@ -35,8 +35,12 @@
       </div>
       -->
     </div>
-    <div class="text-secondary" *ngIf="criteria[task.criteria]">
-      WCAG {{task.criteria}} (Level {{criteria[task.criteria]?.level || '?'}})
+    <div class="text-secondary" *ngIf="task.criteria.length">
+      WCAG
+      <span *ngFor="let _criteria of task.criteria; let i = index">
+        <span *ngIf="i > 0">&middot;</span>
+        {{_criteria}} ({{criteria[_criteria]?.level || '?'}})
+      </span>
     </div>
   </div>
   <ng-container *ngTemplateOutlet="(itemStatus[task.name]?.expanded ? full : basic); context: { task: task }">
@@ -57,23 +61,29 @@
 
   <div class="small">
     <ng-container *ngIf="task.failure">
-      <div class="mb-2">
+      <div class="mt-2">
         <label class="label text-secondary">Potential ways to fail:</label>
-        <div [innerHTML]="task.failure"></div>
+        <div class="pl-4" [innerHTML]="task.failure"></div>
       </div>
     </ng-container>
     <ng-container *ngIf="task.intent">
-      <div class="mb-2">
+      <div class="mt-2">
         <label class="label text-secondary">Why is this important?</label>
-        <div [innerHTML]="task.intent"></div>
+        <div class="pl-4" [innerHTML]="task.intent"></div>
       </div>
     </ng-container>
-    <ng-container *ngIf="criteria[task.criteria]?.documents">
+    <div class="mt-2" *ngIf="task.criteria.length">
       <label class="label text-secondary">Further Reading:</label>
-      <div>
-        <a *ngIf="criteria[task.criteria]?.documents.understanding" target="_blank" href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/{{criteria[task.criteria]?.documents.understanding}}.html" class="text-primary"><i class="fas fa-fw fa-link"></i> Understanding SC {{task.criteria}}</a>
-      </div>
-    </ng-container>
+      <ng-container *ngFor="let _criteria of task.criteria">
+        <ng-container *ngIf="criteria[_criteria]?.documents">
+          <div class="pl-4">
+            <a *ngIf="criteria[_criteria]?.documents.understanding" target="_blank" href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/{{criteria[task.criteria]?.documents.understanding}}.html" class="text-primary">
+              <i class="fas fa-fw fa-link"></i> Understanding SC {{_criteria}}
+            </a>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
   </div>
 </ng-template>
 
