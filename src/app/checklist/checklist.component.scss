@@ -3,6 +3,7 @@
 .heading-3 {
     font-size: 1.2em;
     margin: 0;
+    font-weight: 600;
 }
 
 .btn-text {
@@ -20,6 +21,16 @@
     width: 100%;
     color: #222222 !important;
     box-shadow: inset 0 0 0 1px $color-white700;
+
+    .label {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    a {
+        position: relative;
+        z-index: 3;
+    }
 
     &:hover {
         background-color: $color-white300 !important;

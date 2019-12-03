@@ -35,9 +35,53 @@
       </div>
       -->
     </div>
-    <div class="text-secondary">
+    <div class="text-secondary" *ngIf="criteria[task.criteria]">
       WCAG {{task.criteria}} (Level {{criteria[task.criteria]?.level || '?'}})
     </div>
   </div>
-  <div [innerHTML]="task.description"></div>
+  <ng-container *ngTemplateOutlet="(itemStatus[task.name]?.expanded ? full : basic); context: { task: task }">
+  </ng-container>
 </button>
+
+<ng-template #full let-task="task">
+  <ul>
+    <li *ngFor="let text of task.tasks" [innerHTML]="text.text">
+      <ul *ngIf="text.subtasks">
+        <li *ngFor="let _text of text.subtasks" [innerHTML]="_text.text"></li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr />
+
+  <div class="small">
+    <ng-container *ngIf="task.failure">
+      <div class="mb-2">
+        <label class="label text-secondary">Potential ways to fail:</label>
+        <div [innerHTML]="task.failure"></div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="task.intent">
+      <div class="mb-2">
+        <label class="label text-secondary">Why is this important?</label>
+        <div [innerHTML]="task.intent"></div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="criteria[task.criteria]?.documents">
+      <label class="label text-secondary">Further Reading:</label>
+      <div>
+        <a *ngIf="criteria[task.criteria]?.documents.understanding" target="_blank" href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/{{criteria[task.criteria]?.documents.understanding}}.html" class="text-primary"><i class="fas fa-fw fa-link"></i> Understanding SC {{task.criteria}}</a>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #basic let-task="task">
+  <ul>
+    <li *ngFor="let text of task.tasks" [innerHTML]="text.text">
+      <ul *ngIf="text.subtasks">
+        <li *ngFor="let _text of text.subtasks" [innerHTML]="_text.text"></li>
+      </ul>
+    </li>
+  </ul>
+</ng-template>

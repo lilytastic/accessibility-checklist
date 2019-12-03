@@ -37,7 +37,12 @@ export class ChecklistComponent implements OnInit {
     this.tasks = TASKS.filter(x => applicableCriteria.includes(x.criteria)).sort((a, b) => (
       this.levelPriority[(this.criteria[a.criteria]||{level:'A'}).level] - this.levelPriority[(this.criteria[b.criteria]||{level:'A'}).level]
     ));
-    this.tasks.push({name: 'Developer', description: '<ul><li>Give Lily snacks</li></ul>', criteria: 'N/A'});
+    this.tasks.push({
+      name: 'And lastly...',
+      intent: `I don't understand the question.`,
+      tasks: [{text: 'Give Spark team a pizza.', subtasks: [{text: `Just cheese is fine.`}]],
+      criteria: 'N/A'
+    });
   }
 
   toggleExpand(name: string) {

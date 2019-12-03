@@ -92,6 +92,11 @@ ul {
         display: none;
     }
 }
+.task {
+    ul ul {
+        font-size: 80%;
+    }
+}
 
 .btn {
     &-primary {
