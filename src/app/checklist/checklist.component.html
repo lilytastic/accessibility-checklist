@@ -45,7 +45,8 @@
 
 <ng-template #full let-task="task">
   <ul>
-    <li *ngFor="let text of task.tasks" [innerHTML]="text.text">
+    <li *ngFor="let text of task.tasks">
+      <span [innerHTML]="text.text"></span>
       <ul *ngIf="text.subtasks">
         <li *ngFor="let _text of text.subtasks" [innerHTML]="_text.text"></li>
       </ul>
@@ -78,10 +79,6 @@
 
 <ng-template #basic let-task="task">
   <ul>
-    <li *ngFor="let text of task.tasks" [innerHTML]="text.text">
-      <ul *ngIf="text.subtasks">
-        <li *ngFor="let _text of text.subtasks" [innerHTML]="_text.text"></li>
-      </ul>
-    </li>
+    <li *ngFor="let text of task.tasks" [innerHTML]="text.text"></li>
   </ul>
 </ng-template>
