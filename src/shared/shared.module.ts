@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RemovePeriodsPipe } from './pipes/remove-periods.pipe';
+import { KebabPipe } from './pipes/kebab.pipe';
 
 @NgModule({
   imports: [],
   exports: [
-    RemovePeriodsPipe
+    RemovePeriodsPipe,
+    KebabPipe
   ],
   declarations: [
-    RemovePeriodsPipe
+    RemovePeriodsPipe,
+    KebabPipe
   ],
   providers: []
 })

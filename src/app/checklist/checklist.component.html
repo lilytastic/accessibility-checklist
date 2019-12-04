@@ -84,11 +84,11 @@
       <label class="label text-secondary">Further Reading:</label>
       <div class="pl-4">
         <ng-container *ngFor="let _criteria of task.criteria">
-          <ng-container *ngIf="criteria[_criteria]?.criteriaId">
-            <a *ngIf="criteria[_criteria]?.criteriaId" class="mr-2 d-inline-block" target="_blank" href="https://www.w3.org/WAI/WCAG21/Understanding/{{criteria[task.criteria]?.criteriaId}}.html">
+          <ng-container>
+            <a class="mr-2 d-inline-block" target="_blank" href="https://www.w3.org/WAI/WCAG21/Understanding/{{criteria[_criteria]?.criteriaId || (criteria[_criteria]?.name | kebab)}}.html">
               <i class="fas fa-fw fa-link"></i> Understanding SC {{_criteria}}
             </a>
-            <a *ngIf="criteria[_criteria]?.criteriaId" class="mr-2 d-inline-block" target="_blank" href="https://www.w3.org/WAI/WCAG21/quickref/?showtechniques={{_criteria | removePeriods}}#{{criteria[task.criteria]?.criteriaId}}">
+            <a class="mr-2 d-inline-block" target="_blank" href="https://www.w3.org/WAI/WCAG21/quickref/?showtechniques={{_criteria | removePeriods}}#{{criteria[task.criteria]?.criteriaId || (criteria[_criteria]?.name | kebab)}}">
               <i class="fas fa-fw fa-link"></i> How to Meet SC {{_criteria}}
             </a>
           </ng-container>
