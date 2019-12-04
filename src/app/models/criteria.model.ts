@@ -78,7 +78,7 @@ export const CRITERIA = [
     level: 'A'
   },
   {
-    id: '1.3.3',
+    id: '1.3.4',
     name: 'Orientation',
     level: 'AA'
   },

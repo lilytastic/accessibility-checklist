@@ -29,6 +29,9 @@ export class ChecklistComponent implements OnInit {
   get selectedRoles() {
     return Object.keys(this.roleStatus).filter(x => this.roleStatus[x]);
   }
+  get selectedRolesByName() {
+    return Object.keys(this.roleStatus).filter(x => this.roleStatus[x]).map(x => ROLES.find(y => y.id === x).shortName);
+  }
 
   ngOnInit() {
     this.criteria = {};
@@ -51,6 +54,18 @@ export class ChecklistComponent implements OnInit {
         documents: [{text: 'Technique P20: Acceptable Restaurants (complete list)', href: 'https://www.pizzahut.ca/home'}]
       });
     }
+  }
+
+  expandAll() {
+    this.tasks.forEach(x => {this.itemStatus[x.name] = this.itemStatus[x.name] || {expanded: true}; this.itemStatus[x.name].expanded = true;});
+  }
+
+  collapseAll() {
+    this.tasks.forEach(x => {this.itemStatus[x.name] = this.itemStatus[x.name] || {expanded: false}; this.itemStatus[x.name].expanded = false;});
+  }
+
+  getApplicableRoles(roles: string[], criteria: string[]) {
+    return roles.map(x => ROLES.find(y => y.id === x)).filter(x => x.applicableCriteria.filter(y => criteria.includes(y)).length).map(x => x.shortName);
   }
 
   toggleExpand(name: string) {

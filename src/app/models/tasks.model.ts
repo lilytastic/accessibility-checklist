@@ -97,27 +97,103 @@ export const TASKS: Task[] = [
     intent: `Not all users can use a mouse, be it due to visual or movement impairment. Keyboard-only users rely on using <code>TAB</code> to change focus and navigate through the site, which you can try in this application. It's important that the order of elements is intuitive, so it's standard to follow the reading order.`,
     tasks: [
       {
-        text: `The arrangement of elements in the DOM must match the order in which those elements are meant to be read.`,
+        text: `Ensure the arrangement of elements in the DOM matches the order in which those elements are read.`,
         subtasks: [
           {text: `For example, if three buttons are positioned on opposite corners of a page using <code>position: absolute</code>, the DOM must match their actual position relative to other elements.`}
         ]
       },
       {
-        text: `Use the keyboard to navigate through elements and ensure the sequence matches reading order.`
+        text: `If you don't have access to the DOM, use the keyboard to navigate through elements and ensure the sequence matches the order in which those elements are read.`
       }
     ],
     documents: [{text: 'Technique C27: Making the DOM order match the visual order', href: 'https://www.w3.org/WAI/WCAG21/Techniques/css/C27.html'}]
   },
   {
-    name: 'Reliance on Color',
+    name: 'No Reliance on Senses',
+    criteria: ['1.3.3'],
+    intent: 'Relying on sensory characteristics excludes those whose senses are impaired.',
+    tasks: [
+      {
+        text: `Ensure functionality and all related instructions don't rely on sensory data like shape, colour, or size to be understood.`,
+        subtasks: [{text: `Rather than "Click the big blue button", say "Click the Submit button" and ensure the button has an associated "Submit" label.`}]
+      }
+    ]
+  },
+  {
+    name: 'Orientation',
+    criteria: ['1.3.4'],
+    intent: `Some users with mobility and/or vision impairment have a specialized display, and can't change its orientation.`,
+    tasks: [
+      {
+        text: `Ensure site works in both portrait and landscape without loss of information, unless a specific orientation is essential.`,
+        subtasks: [{text: `Examples where a particular display orientation may be essential are a bank check, a piano application, slides for a projector or television, or virtual reality content where binary display orientation is not applicable.`}]
+      }
+    ]
+  },
+  {
+    name: 'Identify Input Purpose',
+    criteria: ['1.3.5'],
+    intent: 'This will make filling out forms much easier for those with cognitive disabilities.',
+    tasks: [
+      {
+        text: `Ensure the purposes of all form inputs are communicated properly.`,
+        subtasks: [
+          {text: `The purpose of the field must be programmatically determinable for those with screen readers and other assistive technologies. Use appropriate labels and HTML attributes such as <code>autocomplete</code>.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'No Reliance on Color',
     criteria: ['1.4.1'],
     intent: `Relying on colour excludes colorblind and non-sighted users.`,
     tasks: [{
       text: `Ensure colour is never the sole means of communicating something.`,
       subtasks: [{
-        text: `Rather than using a coloured dot to indicate status, you can use icons with distinct shapes, and add a label.`
+        text: `Rather than using a coloured dot to indicate status, you can use icons with distinct shapes, and add a label for screen readers.`
       }]
     }]
+  },
+  {
+    name: 'Keyboard',
+    criteria: ['2.1.1'],
+    intent: 'Not all users can use a mouse, be it due to visual or movement impairment. Keyboard-only users rely on using <code>TAB</code> to change focus and navigate through the site, which you can try in this application.',
+    tasks: [
+      {text: "Ensure every interactive element can receive focus by using <code>TAB</code> on the keyboard."},
+      {
+        text: "Ensure every interactive element is usable using only the keyboard.",
+        subtasks: [
+          {text: `<code>ENTER</code> should activate buttons and links, arrow keys should navigate through carousels, etc.`},
+          {text: `Meaningful semantic markup is helpful here; most HTML elements have built-in keyboard support.`}
+        ]
+      },
+      {text: "Ensure every interactive element has a clear and visible focus state."}
+    ]
+  },
+  {
+    name: 'Focus',
+    criteria: ['2.1.2'],
+    intent: `Because keyboard users don't have a cursor, this is how they track where they are on the page.`,
+    tasks: [
+      {
+        text: "Ensure there is a clear and visible focus state for any and all interactive elements.",
+        subtasks: [
+          {text: `All buttons should have a bright and obvious outline on focus. All links should have an underline or "glow"`},
+          {text: `Clicks also trigger the focus state. This will result in said outline appearing on buttons/links after you click them. However, <i>please don't let this stop you from making the focus state as bright, bold, and visible as possible</i>. De-emphasizing the focus state for aesthetic purposes will severely damage the experience for keyboard users.`}
+        ]
+      },
+    ]
+  },
+  {
+    name: 'Target Area',
+    criteria: ['2.5.5'],
+    intent: `This is already best practice for mobile UX, but it's also important for those with impaired mobility, who may lack precision with a cursor.`,
+    tasks: [
+      {
+        text: `Ensure the target area of all buttons (i.e. the area that actually receives clicks) is at least 44x44 pixels in size.`,
+        subtasks: [{text: `Note that the target area doesn't have to match the graphic. A 'ghost button' with a small icon is acceptable so long as the target area is 44x44.`}]
+      }
+    ]
   },
   {
     name: 'No Change on Focus',

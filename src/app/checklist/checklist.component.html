@@ -3,17 +3,27 @@
 
 <div class="text-center mt-3 mb-4">
   <h2>My Checklist</h2>
-  <p class="paragraph" *ngIf="selectedRoles.length; else allRoles" [innerHTML]="'This is everything you can do to improve accessibility in our applications.'">
+  <p class="paragraph" *ngIf="selectedRoles.length; else allRoles">
+    This is everything you can do to improve accessibility in our applications, based on your chosen roles
+    (<span *ngFor="let role of selectedRolesByName; let i = index; let last = last"><span *ngIf="i > 0 && !last || i > 1">, </span><span *ngIf="i > 0 && last"> and </span>{{role}}</span>).
   </p>
   <ng-template #allRoles>
     <p class="paragraph">
-      These are all the tasks that will improve accessibility in our applications. <br/> <a [routerLink]="['/', 'setup']">Select one or more roles</a> to see a more personalized list.
+      This is everything you can do to help improve accessibility in our applications.
+      <br/>
+      <a [routerLink]="['/', 'setup']">Select one or more roles</a> to see a more personalized list.
     </p>
   </ng-template>
 </div>
 
+<div class="pb-2 text-right">
+  <button class="btn btn-outline-primary" (click)="expandAll()">Expand All</button>
+  &nbsp;
+  <button class="btn btn-outline-primary" (click)="collapseAll()">Collapse All</button>
+</div>
+
 <div class="pb-5">
-  <button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks" [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
+  <button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks; let i = index" [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
     <!--
     <div class="d-flex justify-content-between mb-1">
       <div class="d-flex align-items-start">
@@ -31,7 +41,7 @@
     <div class="d-flex mb-2 small justify-content-between align-items-center">
       <div class="d-flex align-items-start text-secondary">
         <h3 class="heading-3">
-          {{task.name}}
+          {{i+1}}. {{task.name}}
         </h3>
         <div class="ml-1 btn btn-text text-secondary btn-sm">
           <i class="fas fa-fw fa-{{itemStatus[task.name]?.expanded ? 'caret-down' : 'caret-right'}}"></i>
@@ -98,6 +108,14 @@
         </a>
       </div>
     </div>
+    <ng-container *ngIf="selectedRoles.length > 1 && task.criteria.length">
+      <div class="mt-2 text-right text-secondary">
+        <div>
+          <span *ngFor="let role of getApplicableRoles(selectedRoles, task.criteria); let i = index; let last = last"
+            ><span *ngIf="i > 0">, </span>{{role}}</span>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </ng-template>
 
