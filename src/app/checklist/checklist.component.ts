@@ -45,9 +45,10 @@ export class ChecklistComponent implements OnInit {
     if (this.tasks.length) {
       this.tasks.push({
         name: 'Lastly...',
-        intent: `I don't understand the question.`,
         tasks: [{text: 'Give Spark team a pizza.', subtasks: [{text: `Just cheese is fine.`}]}],
-        criteria: []
+        intent: `I don't understand the question.`,
+        criteria: [],
+        documents: [{text: 'Technique P20: Acceptable Restaurants (complete list)', href: 'https://www.pizzahut.ca/home'}]
       });
     }
   }

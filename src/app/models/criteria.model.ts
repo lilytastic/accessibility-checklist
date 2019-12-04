@@ -2,12 +2,14 @@
 export const CRITERIA = [
   {
     id: '1.1.1',
+    criteriaId: 'non-text-content',
     name: 'Non-text Content',
     documents: {understanding: 'text-equiv-all'},
     level: 'A'
   },
   {
     id: '1.2.1',
+    criteriaId: 'audio-only-and-video-only-prerecorded',
     name: 'Prerecorded Audio-only and Video-only',
     documents: {understanding: 'media-equiv-av-only-al'},
     level: 'A'
@@ -66,6 +68,7 @@ export const CRITERIA = [
   {
     id: '1.3.2',
     name: 'Meaningful Sequence',
+    documents: {understanding: 'meaningful-sequence'},
     level: 'A'
   },
   {

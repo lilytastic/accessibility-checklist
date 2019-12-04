@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { SetupComponent } from './setup/setup.component';
 import { ChecklistComponent } from './checklist/checklist.component';
+import { SharedModule } from 'src/shared/shared.module';
 
 const ROUTES = [
   { path: 'setup', component: SetupComponent },
@@ -21,6 +22,7 @@ const ROUTES = [
   ],
   imports: [
     BrowserModule,
+    SharedModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [],

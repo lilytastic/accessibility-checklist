@@ -3,8 +3,13 @@
 
 <div class="text-center mt-3 mb-4">
   <h2>My Checklist</h2>
-  <p class="paragraph" [innerHTML]="selectedRoles.length ? 'This is everything you can do to improve accessibility in our applications.' : 'These are all the tasks that will improve accessibility in our applications. <br/> Select one or more roles to see a more personalized list.'">
+  <p class="paragraph" *ngIf="selectedRoles.length; else allRoles" [innerHTML]="'This is everything you can do to improve accessibility in our applications.'">
   </p>
+  <ng-template #allRoles>
+    <p class="paragraph">
+      These are all the tasks that will improve accessibility in our applications. <br/> <a [routerLink]="['/', 'setup']">Select one or more roles</a> to see a more personalized list.
+    </p>
+  </ng-template>
 </div>
 
 <div class="pb-5">
@@ -75,20 +80,23 @@
         <div class="pl-4" [innerHTML]="task.intent"></div>
       </div>
     </ng-container>
-    <div class="mt-2" *ngIf="task.criteria.length">
+    <div class="mt-2" *ngIf="task.criteria.length || task.documents">
       <label class="label text-secondary">Further Reading:</label>
-      <ng-container *ngFor="let _criteria of task.criteria">
-        <ng-container *ngIf="criteria[_criteria]?.documents || task.documents">
-          <div class="pl-4">
-            <a *ngIf="criteria[_criteria]?.documents?.understanding" target="_blank" href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/{{criteria[task.criteria]?.documents?.understanding}}.html" class="text-primary">
+      <div class="pl-4">
+        <ng-container *ngFor="let _criteria of task.criteria">
+          <ng-container *ngIf="criteria[_criteria]?.criteriaId">
+            <a *ngIf="criteria[_criteria]?.criteriaId" class="mr-2 d-inline-block" target="_blank" href="https://www.w3.org/WAI/WCAG21/Understanding/{{criteria[task.criteria]?.criteriaId}}.html">
               <i class="fas fa-fw fa-link"></i> Understanding SC {{_criteria}}
             </a>
-            <a *ngFor="let link of task.documents" target="_blank" href="{{link.href}}">
-              <i class="fas fa-fw fa-link"></i> {{link.text}}
+            <a *ngIf="criteria[_criteria]?.criteriaId" class="mr-2 d-inline-block" target="_blank" href="https://www.w3.org/WAI/WCAG21/quickref/?showtechniques={{_criteria | removePeriods}}#{{criteria[task.criteria]?.criteriaId}}">
+              <i class="fas fa-fw fa-link"></i> How to Meet SC {{_criteria}}
             </a>
-          </div>
+          </ng-container>
         </ng-container>
-      </ng-container>
+        <a *ngFor="let link of task.documents" class="mr-2 d-inline-block" target="_blank" href="{{link.href}}">
+          <i class="fas fa-fw fa-link"></i> {{link.text}}
+        </a>
+      </div>
     </div>
   </div>
 </ng-template>

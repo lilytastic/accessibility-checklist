@@ -106,7 +106,7 @@ export const TASKS: Task[] = [
         text: `Use the keyboard to navigate through elements and ensure the sequence matches reading order.`
       }
     ],
-    documents: [{text: 'Technique C27: Making the DOM order match the visual order', href: 'https://www.w3.org/WAI/WCAG21/Techniques/css/C27.html'}];
+    documents: [{text: 'Technique C27: Making the DOM order match the visual order', href: 'https://www.w3.org/WAI/WCAG21/Techniques/css/C27.html'}]
   },
   {
     name: 'Reliance on Color',
@@ -138,7 +138,7 @@ export const TASKS: Task[] = [
     intent: `This is just good UX, but it's especially important for those with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users, who otherwise won't see that an error has appeared.`,
     tasks: [
       {text: `Ensure that if there is a problem with user input (in a form, for example), it is identified and explained to the user through text.`},
-      {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that screen readers are informed.`}
+      {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that errors can be announced via screen reader.`}
     ]
   },
   {
@@ -153,7 +153,7 @@ export const TASKS: Task[] = [
           {text: `Exceptions are made if doing so jeopardizes security or functionality.`}
         ]
       },
-      {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that screen readers are informed.`}
+      {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that errors can be announced via screen reader.`}
     ]
   }
 ];
