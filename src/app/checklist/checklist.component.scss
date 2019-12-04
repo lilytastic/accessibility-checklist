@@ -69,7 +69,7 @@
     background: $color-white100 !important;
     width: 100%;
     color: #222222 !important;
-    box-shadow: inset 0 0 0 1px $color-white700;
+    box-shadow: inset 0 0 0 1px $color-white900, 0 3px 9px -1px $color-white700;
 
     .label {
         margin: 0;
@@ -99,7 +99,7 @@
     }
 
     &.critical::before {
-        background-color: $color-red500;
+        background-color: $color-red300;
         box-shadow: inset 0 0 0 1px $color-red700;
     }
     &.optional::before {
@@ -107,7 +107,7 @@
         box-shadow: inset 0 0 0 1px $color-green500;
     }
     &.special::before {
-        background-color: $color-violet500;
+        background-color: $color-violet300;
         box-shadow: inset 0 0 0 1px $color-violet700;
     }
 }

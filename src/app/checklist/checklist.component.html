@@ -1,5 +1,5 @@
 
-<a [routerLink]="['/', 'setup']" class="btn p-0 btn-lg btn-link"><i class="fas fa-chevron-left"></i>&nbsp; My Roles</a>
+<a [routerLink]="['/', 'setup']" class="btn p-0 btn-lg btn-link"><i class="fas fa-angle-left"></i>&nbsp; My Roles</a>
 
 <div class="text-center mt-3 mb-4">
   <h2>My Checklist</h2>
@@ -33,7 +33,7 @@
 </div>
 
 <div class="pb-5">
-  <div class="task mb-3" *ngFor="let task of tasks; let i = index"
+  <div class="task mb-4" *ngFor="let task of tasks; let i = index"
       [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
     <div class="d-flex mb-2 small justify-content-between align-items-start">
       <div class="d-flex align-items-start text-secondary">
@@ -43,7 +43,7 @@
         </h3>
       </div>
       <button (click)="toggleExpand(task.name)" class="expand-btn ml-2 text-secondary btn btn-sm">
-        <i class="fas fa-fw fa-{{itemStatus[task.name]?.expanded ? 'caret-up' : 'caret-square-down'}}"></i>
+        <i class="fas fa-fw fa-{{!itemStatus[task.name]?.expanded ? 'chevron-up' : 'chevron-down'}}"></i>
       </button>
     </div>
     <ng-container *ngTemplateOutlet="(itemStatus[task.name]?.expanded ? full : basic); context: { task: task }">
