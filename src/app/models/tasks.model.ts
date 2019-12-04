@@ -195,8 +195,7 @@ export const TASKS: Task[] = [
         text: `Ensure a contrast ratio of at least 3:1 on any part of an image that's required to understand its content.`
       },
       {
-        text: `Ensure a contrast ratio of at least 3:1 for any part of a UI element that's necessary to understand its state.`,
-        subtasks: [{text: ``}]
+        text: `Ensure a contrast ratio of at least 3:1 for any part of a UI element that's necessary to understand its state.`
       },
     ]
   },
@@ -390,7 +389,7 @@ export const TASKS: Task[] = [
     tasks: [
       {
         text: `Ensure the target area of all buttons (i.e. the area that actually receives clicks) is at least 44x44 pixels in size.`,
-        subtasks: [{text: `Note that the target area doesn't have to match the graphic. A 'ghost button' with a small icon is acceptable so long as the target area is 44x44. The button to expand/collapse tasks in this application use this technique.`}]
+        subtasks: [{text: `Note that the target area doesn't have to match the graphic. A 'ghost button' with a small icon is acceptable so long as the target area is 44x44. For example, the buttons to expand and collapse tasks in this app use this technique.`}]
       }
     ]
   },

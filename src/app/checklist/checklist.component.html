@@ -35,23 +35,16 @@
 <div class="pb-5">
   <div class="task mb-3" *ngFor="let task of tasks; let i = index"
       [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
-    <div class="d-flex mb-2 small justify-content-between align-items-center">
+    <div class="d-flex mb-2 small justify-content-between align-items-start">
       <div class="d-flex align-items-start text-secondary">
         <h3 class="heading-3">
           <span class="task-number">{{i+1}}.</span>
           {{task.name}}
         </h3>
-        <button (click)="toggleExpand(task.name)" class="expand-btn ml-2 btn btn-sm">
-          <i class="fas fa-fw fa-{{itemStatus[task.name]?.expanded ? 'caret-down' : 'caret-right'}}"></i>
-        </button>
       </div>
-      <div class="text-secondary" *ngIf="task.criteria.length">
-        WCAG
-        <span *ngFor="let _criteria of task.criteria; let i = index">
-          <span *ngIf="i > 0">&middot;</span>
-          {{_criteria}} ({{criteria[_criteria]?.level || '?'}})
-        </span>
-      </div>
+      <button (click)="toggleExpand(task.name)" class="expand-btn ml-2 text-secondary btn btn-sm">
+        <i class="fas fa-fw fa-{{itemStatus[task.name]?.expanded ? 'caret-up' : 'caret-square-down'}}"></i>
+      </button>
     </div>
     <ng-container *ngTemplateOutlet="(itemStatus[task.name]?.expanded ? full : basic); context: { task: task }">
     </ng-container>
@@ -80,6 +73,18 @@
   <hr />
 
   <div class="small">
+    <div class="text-secondary mt-2" *ngIf="task.criteria.length">
+      <label class="label text-secondary">Related Criteria:</label>
+      <div class="pl-4">
+        <span *ngFor="let _criteria of task.criteria; let i = index">
+          <span *ngIf="i > 0"> &middot; </span>
+          <a target="_blank" class="text-secondary" href="https://www.w3.org/TR/WCAG21/#{{criteria[_criteria]?.criteriaId || (criteria[_criteria]?.name | kebab)}}">
+            {{_criteria}} ({{criteria[_criteria]?.level || '?'}}):
+            {{criteria[_criteria]?.name}}
+          </a>
+        </span>
+      </div>
+    </div>
     <ng-container *ngIf="task.failure">
       <div class="mt-2">
         <label class="label text-secondary">Potential ways to fail:</label>
@@ -124,7 +129,10 @@
 <ng-template #basic let-task="task">
   <ul>
     <li *ngFor="let text of task.tasks">
-      <span [innerHTML]="text.text"></span> <button class="small btn btn-sm d-inline-block ml-2 text-secondary" *ngIf="text.subtasks"><i class="fas small fa-ellipsis-h"></i></button>
+      <span [innerHTML]="text.text"></span>
+      <!--
+        <button (click)="toggleExpand(task.name)" class="small btn btn-sm d-inline-block ml-2 text-secondary" *ngIf="text.subtasks"><i class="fas small fa-ellipsis-h"></i></button>
+      -->
     </li>
   </ul>
 </ng-template>
