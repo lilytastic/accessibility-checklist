@@ -38,6 +38,10 @@
         z-index: 3;
     }
 
+    li + li, ul ul li {
+        margin-top: 0.3em;
+    }
+
     &:hover {
         background-color: $color-white300 !important;
     }

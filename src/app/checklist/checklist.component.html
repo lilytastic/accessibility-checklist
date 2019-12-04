@@ -33,21 +33,8 @@
 </div>
 
 <div class="pb-5">
-  <button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks; let i = index" [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
-    <!--
-    <div class="d-flex justify-content-between mb-1">
-      <div class="d-flex align-items-start">
-        <h3 class="heading-3">
-          {{task.name}}
-        </h3>
-      </div>
-      <div class="d-flex small align-items-center">
-        <div class="text-secondary">
-          WCAG {{task.criteria}} (Level {{criteria[task.criteria]?.level || '?'}})
-        </div>
-      </div>
-    </div>
-    -->
+  <button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks; let i = index"
+      [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
     <div class="d-flex mb-2 small justify-content-between align-items-center">
       <div class="d-flex align-items-start text-secondary">
         <h3 class="heading-3">
@@ -57,11 +44,6 @@
         <div class="ml-1 btn btn-text text-secondary btn-sm">
           <i class="fas fa-fw fa-{{itemStatus[task.name]?.expanded ? 'caret-down' : 'caret-right'}}"></i>
         </div>
-        <!--
-        <div class="btn btn-text text-secondary btn-sm ml-3">
-          Click to {{expanded[task.name] ? 'collapse' : 'expand'}}
-        </div>
-        -->
       </div>
       <div class="text-secondary" *ngIf="task.criteria.length">
         WCAG
@@ -74,6 +56,15 @@
     <ng-container *ngTemplateOutlet="(itemStatus[task.name]?.expanded ? full : basic); context: { task: task }">
     </ng-container>
   </button>
+
+  <div>
+    This document is a work in progress, and is missing tasks for the following WCAG criteria:
+    <ul>
+      <li *ngFor="let criteria of missingCriteria">
+        {{criteria.id}} ({{criteria.level}}): {{criteria.name}}
+      </li>
+    </ul>
+  </div>
 </div>
 
 <ng-template #full let-task="task">
@@ -107,10 +98,10 @@
         <ng-container *ngFor="let _criteria of task.criteria">
           <ng-container>
             <a class="mr-2 d-inline-block" target="_blank" href="https://www.w3.org/WAI/WCAG21/Understanding/{{criteria[_criteria]?.criteriaId || (criteria[_criteria]?.name | kebab)}}.html">
-              <i class="fas fa-fw fa-link"></i> Understanding SC {{_criteria}}
+              <i class="fas fa-fw fa-link"></i> Understanding {{_criteria}}
             </a>
             <a class="mr-2 d-inline-block" target="_blank" href="https://www.w3.org/WAI/WCAG21/quickref/?showtechniques={{_criteria | removePeriods}}#{{criteria[task.criteria]?.criteriaId || (criteria[_criteria]?.name | kebab)}}">
-              <i class="fas fa-fw fa-link"></i> How to Meet SC {{_criteria}}
+              <i class="fas fa-fw fa-link"></i> How to Meet {{_criteria}}
             </a>
           </ng-container>
         </ng-container>

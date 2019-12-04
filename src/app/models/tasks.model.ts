@@ -2,6 +2,7 @@ export interface Task {
   criteria: string[];
   name: string;
   tasks: {text: string, subtasks?: {text: string}[]}[];
+  encapsulatedBy?: string[],
   intent?: string;
   failure?: string;
   documents?: {text: string, href: string}[];
@@ -48,8 +49,8 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'Video Content',
-    criteria: ['1.2.1', '1.2.8'],
+    name: 'Described Video Content',
+    criteria: ['1.2.1', '1.2.3', '1.2.5', '1.2.8'],
     intent: `Audio and video can exclude some users, so special care must be taken. Putting raw text in the browser is naturally accessible.`,
     tasks: [
       {
@@ -67,6 +68,12 @@ export const TASKS: Task[] = [
   },
   {
     name: 'Captions',
+    criteria: ['1.2.2'],
+    intent: `Some hearing-impaired users can't hear audio.`,
+    tasks: [{text: `Ensure all prerecorded audio is captioned.`}]
+  },
+  {
+    name: 'Live Captions',
     criteria: ['1.2.4'],
     intent: `Some hearing-impaired users can't hear audio.`,
     tasks: [{text: `Ensure all live audio is captioned.`}]
@@ -92,7 +99,7 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'Tab Order',
+    name: 'Tab Sequence Matches Reading Order',
     criteria: ['1.3.2'],
     intent: `Not all users can use a mouse, be it due to visual or movement impairment. Keyboard-only users rely on using <code>TAB</code> to change focus and navigate through the site, which you can try in this application. It's important that the order of elements is intuitive, so it's standard to follow the reading order.`,
     tasks: [
@@ -120,7 +127,7 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'Orientation',
+    name: 'Allow Both Orientations',
     criteria: ['1.3.4'],
     intent: `Some users with mobility and/or vision impairment have a specialized display, and can't change its orientation.`,
     tasks: [
@@ -155,7 +162,136 @@ export const TASKS: Task[] = [
     }]
   },
   {
-    name: 'Keyboard',
+    name: 'No Autoplay',
+    criteria: ['1.4.2'],
+    intent: `Individuals with screen readers navigate via audio, often using the same volume track as the app itself. If audio starts playing and the user doesn't have an easy means of stopping it, they're now unable to navigate.`,
+    tasks: [
+      {
+        text: `Ensure the app never plays any audio over 3 seconds long automatically.`,
+        subtasks: [{text: `This excludes chimes and notification sounds under 3 seconds long.`}]
+      },
+      {
+        text: `If it's absolutely necessary for the app to function, ensure there's an easy and accessible means of silencing it.`,
+        subtasks: [
+          {text: `Specifically, users of screen readers must be able to silence it easily. See below.`},
+          {text: `To pass, the volume must go to <i>zero</i>.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Contrast (1)',
+    criteria: ['1.4.3', '1.4.11'],
+    intent: `The standard contrast ratio makes things readable for those with low or impaired vision. And normal vision.`,
+    encapsulatedBy: ['1.4.6'],
+    tasks: [
+      {
+        text: `Ensure a contrast ratio of at least 3:1 on all text.`,
+        subtasks: [
+          {text: 'Text that is purely decorative is excluded. This includes logos.'}
+        ]
+      },
+      {
+        text: `Ensure a contrast ratio of at least 3:1 on any part of an image that's required to understand its content.`
+      },
+      {
+        text: `Ensure a contrast ratio of at least 3:1 for any part of a UI element that's necessary to understand its state.`,
+        subtasks: [{text: ``}]
+      },
+    ]
+  },
+  {
+    name: `Allow 200% Zoom`,
+    criteria: ['1.4.4'],
+    intent: `Users with low or impaired vision will want to enlarge text to make it more readable, using the zoom function built into most browsers.`,
+    tasks: [
+      {
+        text: `Ensure user can zoom in and enlarge text by at least 200% without assistive technologies.`,
+        subtasks: [
+          {text: `Do not use viewport units (<code>vw</code>/<code>vh</code>) for <code>font-size</code>, <code>line-height</code>, etc.`},
+          {text: `To pass, text, controls, and images cannot be clipped when zoomed in at 200%.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'No Images of Text (1)',
+    criteria: ['1.4.5'],
+    intent: `Screen readers can't read text when it's in an image.`,
+    tasks: [
+      {
+        text: `Ensure there are no images of text, unless absolutely necessary.`,
+        subtasks: [
+          {text: `Exceptions apply if the image is customizable, such as a meme generator.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Contrast (2)',
+    criteria: ['1.4.6'],
+    intent: `People with impaired vision.`,
+    tasks: [
+      {
+        text: `Ensure a contrast ratio of at least 4.5:1 on all elements.`,
+        subtasks: [
+          {text: 'Text that is purely decorative is excluded. This includes logos.'}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'No Images of Text (2)',
+    criteria: ['1.4.9'],
+    intent: `Screen readers can't read text when it's in an image.`,
+    tasks: [
+      {
+        text: `Ensure there are no images of text, period.`
+      }
+    ]
+  },
+  {
+    name: 'Allow 400% Zoom',
+    criteria: ['1.4.10'],
+    intent: `Users with low or impaired vision will want to enlarge text to make it more readable, using the zoom function built into most browsers.`,
+    tasks: [
+      {
+        text: `Ensure that when the user zooms in by 400%, there is no loss of information, and that the user is not forced to scroll vertically <i>and</i> horizontally to see content.`,
+      }
+    ]
+  },
+  {
+    name: 'Allow Text Spacing',
+    criteria: ['1.4.12'],
+    intent: `Users with low or impaired vision will want to enlarge text to make it more readable, using the zoom function built into most browsers.`,
+    tasks: [
+      {
+        text: `Ensure that users can change text attributes without breaking the layout.`,
+        subtasks: [
+          {text: `Ensure you can set <em>all</em> the following attributes without breaking functionality or content:<ul><li>Line height: 1.5em</li><li>Spacing following paragraphs: 2em</li><li>Letter spacing: 1.12em</li><li>Word spacing: 1.16em</li></ul>`},
+          {text: `Most browsers have developer tools that allow this. There's also an enclosed 'Text Spacing Bookmarklet' that will automatically set these attributes for you (see below).`}
+        ]
+      }
+    ],
+    documents: [{text: 'Text Spacing Bookmarklet', href: `https://www.html5accessibility.com/tests/tsbookmarklet.html`}]
+  },
+  {
+    name: 'Tooltips, etc.',
+    criteria: ['1.4.13'],
+    intent: `The goal is to design interactions in such a way that users can both perceive the additional content, and dismiss it without disrupting their experience. For users of assistive technologies, showing and hiding content in coordination with hover/focus is frustrating and difficult, unless we follow this criteria.`,
+    tasks: [
+      {
+        text: `Ensure any content that appears on hover or focus &ndash; such as tooltips &ndash; are persistent, hoverable, and dismissable.`,
+        subtasks: [
+          {text: `"Persistent" means the content remains on the screen until it is no longer relevant, disappearing when the user dismisses it or hovers/focuses elsewhere.`},
+          {text: `"Hoverable" means the user can move their cursor <em>off</em> whatever triggered the content to appear, and hover/focus on the new content <em>without it disappearing</em>.`},
+          {text: `"Dismissable" means the user can get rid of the content <em>without moving the cursor or changing focus</em>. It's sufficient to let the user close the tooltip by pressing the <code>ESC</code> key.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Keyboard Functionality',
     criteria: ['2.1.1'],
     intent: 'Not all users can use a mouse, be it due to visual or movement impairment. Keyboard-only users rely on using <code>TAB</code> to change focus and navigate through the site, which you can try in this application.',
     tasks: [
@@ -166,13 +302,48 @@ export const TASKS: Task[] = [
           {text: `<code>ENTER</code> should activate buttons and links, arrow keys should navigate through carousels, etc.`},
           {text: `Meaningful semantic markup is helpful here; most HTML elements have built-in keyboard support.`}
         ]
-      },
-      {text: "Ensure every interactive element has a clear and visible focus state."}
+      }
     ]
   },
   {
-    name: 'Focus',
+    name: 'No Keyboard Trap',
     criteria: ['2.1.2'],
+    intent: 'Not all users can use a mouse, be it due to visual or movement impairment. Keyboard-only users rely on using <code>TAB</code> to change focus and navigate through the site, which you can try in this application. Manipulating focus is equivalent to a site taking control of your cursor.',
+    tasks: [
+      {
+        text: `Ensure that focus is never 'trapped' without the user having an easy means to untrap themselves.`,
+        subtasks: [
+          {text: `For example, if focus is trapped inside a modal or overlay &ndash; which may be necessary for good UX! &ndash; let the user know they can use <code>ESC</code> to close it.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Unintrusive Keyboard Shortcuts',
+    criteria: ['2.1.4'],
+    intent: 'Users may hit keys by accident, especially if they have impaired mobility or use speech input.',
+    tasks: [
+      {
+        text: `Ensure that all keyboard shortcuts are unintrusive for users.`,
+        subtasks: [
+          {text: `
+            If a keyboard shortcut is only one key, <em>and</em> that key is either a letter, number, symbol, or punctuation (keys people are likely to use for other things), then ensure that either:
+            <ol>
+              <li>
+                1) the shortcut only fires when keyboard focus is on a particular element
+                2) the user is able to turn the shortcut off
+                3) the user is able to remap the shortcut to include <code>Ctrl</code>, <code>Alt</code>, <code>Shift</code>, etc.
+              </li>
+            </ol>
+          `},
+          {text: `...Or just make all keyboard shortcuts require a modifier key (<code>Ctrl</code>, <code>Alt</code>, <code>Shift</code>).`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Visible Focus',
+    criteria: ['2.4.7'],
     intent: `Because keyboard users don't have a cursor, this is how they track where they are on the page.`,
     tasks: [
       {
@@ -185,7 +356,7 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'Target Size',
+    name: 'No Tiny Buttons',
     criteria: ['2.5.5'],
     intent: `This is already best practice for mobile UX, but it's also important for those with impaired mobility, who may lack precision with a cursor.`,
     tasks: [
@@ -196,7 +367,20 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'No Change on Focus',
+    name: 'High School Reading Level',
+    criteria: ['3.1.5'],
+    intent: `This is just good UX, but it's especially important for those with cognitive disabilities.`,
+    tasks: [
+      {
+        text: `Ensure all content is written as clearly and simply as possible, and is below a high school reading level.`,
+        subtasks: [
+          {text: `If necessary, you can provide users with a separate version that passes this criteria.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: `Focus Doesn't Trigger Major Change`,
     criteria: ['3.2.1'],
     intent: `Not all users can use a mouse, be it due to visual or movement impairment. Keyboard-only users rely on using <code>TAB</code> to change focus and navigate through the site, which you can try in this application. If simply navigating causes a modal to pop up, the user becomes disoriented, just like if a modal appeared as soon as you simply hovered over a button. Likewise, taking control of focus is equivalent to a site taking control of your mouse.`,
     tasks: [{

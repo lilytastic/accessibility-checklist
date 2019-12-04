@@ -15,6 +15,7 @@ export class ChecklistComponent implements OnInit {
   TASKS = TASKS;
   criteria: { [id: string]: any } = {};
   itemStatus = {};
+  missingCriteria = [];
   levelPriority = {
     'A': 1,
     'AA': 10,
@@ -42,10 +43,14 @@ export class ChecklistComponent implements OnInit {
     const applicableCriteria = this.selectedRoles
       .map(x => ROLES.find(y => y.id === x).applicableCriteria)
       .reduce((acc, curr) => {acc = [...acc, ...curr.filter(x => !acc.find(y => y === x))]; return acc;}, []);
+
     this.tasks = TASKS
       .filter(x => !applicableCriteria.length || applicableCriteria.filter(c => x.criteria.includes(c)).length)
       .map(x => ({...x, level: this.criteria[x.criteria[0]] ? this.criteria[x.criteria[0]].level : ''}));
-    // .sort((a, b) => (this.levelPriority[(this.criteria[a.criteria]||{level:'A'}).level] - this.levelPriority[(this.criteria[b.criteria]||{level:'A'}).level]));
+
+    this.missingCriteria = CRITERIA.filter(x => x.level !== 'AAA' && !TASKS.find(y => y.criteria.includes(x.id)));
+    console.log(applicableCriteria, TASKS, this.missingCriteria);
+    
     if (this.tasks.length) {
       this.tasks.push({
         name: 'Lastly...',
