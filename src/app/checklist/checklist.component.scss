@@ -10,10 +10,16 @@
     padding: 0;
 }
 
+.task-number {
+    display: inline-block;
+    min-width: 15px;
+    font-weight: 400;
+}
+
 .task {
     position: relative;
     font-size: 1.1em;
-    padding: 15px 15px 15px 25px;
+    padding: 20px 20px 20px 28px;
     border-radius: 4px;
     text-align: left;
     border: none;

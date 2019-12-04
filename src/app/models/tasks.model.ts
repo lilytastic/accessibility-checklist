@@ -185,7 +185,7 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'Target Area',
+    name: 'Target Size',
     criteria: ['2.5.5'],
     intent: `This is already best practice for mobile UX, but it's also important for those with impaired mobility, who may lack precision with a cursor.`,
     tasks: [

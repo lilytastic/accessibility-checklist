@@ -12,6 +12,7 @@ export class ChecklistComponent implements OnInit {
 
   roleStatus: { [id: string]: boolean } = {};
   tasks: Task[] = [];
+  TASKS = TASKS;
   criteria: { [id: string]: any } = {};
   itemStatus = {};
   levelPriority = {

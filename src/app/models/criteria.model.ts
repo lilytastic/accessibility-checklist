@@ -158,9 +158,204 @@ export const CRITERIA = [
     level: 'AA'
   },
   {
+    id: '2.1.1',
+    name: 'Keyboard',
+    level: 'A'
+  },
+  {
+    id: '2.1.2',
+    name: 'No Keyboard Trap',
+    level: 'A'
+  },
+  {
+    id: '2.1.3',
+    name: 'Keyboard (No Exception)',
+    level: 'AAA'
+  },
+  {
+    id: '2.1.4',
+    name: 'Character Key Shortcuts',
+    level: 'A'
+  },
+  {
+    id: '2.2.1',
+    name: 'Timing Adjustable',
+    level: 'A'
+  },
+  {
+    id: '2.2.2',
+    name: 'Pause, Stop, Hide',
+    level: 'A'
+  },
+  {
+    id: '2.2.3',
+    name: 'No Timing',
+    level: 'AAA'
+  },
+  {
+    id: '2.2.4',
+    name: 'Interruptions',
+    level: 'AAA'
+  },
+  {
+    id: '2.2.5',
+    name: 'Re-authenticating',
+    level: 'AAA'
+  },
+  {
+    id: '2.2.6',
+    name: 'Timeouts',
+    level: 'AAA'
+  },
+  {
+    id: '2.3.1',
+    name: 'Three Flashes or Below Threshold',
+    level: 'AA'
+  },
+  {
+    id: '2.3.2',
+    name: 'Three Flashes',
+    level: 'AAA'
+  },
+  {
+    id: '2.3.3',
+    name: 'Animation from Interactions',
+    level: 'AAA'
+  },
+  {
+    id: '2.4.1',
+    name: 'Bypass Blocks',
+    level: 'A'
+  },
+  {
+    id: '2.4.2',
+    name: 'Page Titled',
+    level: 'A'
+  },
+  {
+    id: '2.4.3',
+    name: 'Focus Order',
+    level: 'A'
+  },
+  {
+    id: '2.4.4',
+    name: 'Link Purpose (In Context)',
+    level: 'A'
+  },
+  {
+    id: '2.4.5',
+    name: 'Multiple Ways',
+    level: 'AA'
+  },
+  {
+    id: '2.4.6',
+    name: 'Headings and Labels',
+    level: 'AA'
+  },
+  {
+    id: '2.4.7',
+    name: 'Focus Visible',
+    level: 'AA'
+  },
+  {
+    id: '2.4.9',
+    name: 'Link Purpose (Link Only)',
+    level: 'AAA'
+  },
+  {
+    id: '2.4.10',
+    name: 'Section Headings',
+    level: 'AAA'
+  },
+  {
+    id: '2.4.3',
+    name: 'Focus Order',
+    level: 'A'
+  },
+  {
+    id: '2.5.1',
+    name: 'Pointer Gestures',
+    level: 'A'
+  },
+  {
+    id: '2.5.2',
+    name: 'Pointer Cancellation',
+    level: 'A'
+  },
+  {
+    id: '2.5.3',
+    name: 'Label in Name',
+    level: 'A'
+  },
+  {
+    id: '2.5.4',
+    name: 'Motion Actuation',
+    level: 'A'
+  },
+  {
+    id: '2.5.5',
+    name: 'Target Size',
+    level: 'AAA'
+  },
+  {
+    id: '2.5.6',
+    name: 'Concurrent Input Mechanisms',
+    level: 'AAA'
+  },
+  {
+    id: '3.1.1',
+    name: 'Readable',
+    level: 'A'
+  },
+  {
+    id: '3.1.2',
+    name: 'Language of Parts',
+    level: 'AA'
+  },
+  {
+    id: '3.1.3',
+    name: 'Unusual Words',
+    level: 'AAA'
+  },
+  {
+    id: '3.1.4',
+    name: 'Abbreviations',
+    level: 'AAA'
+  },
+  {
+    id: '3.1.5',
+    name: 'Reading Level',
+    level: 'AAA'
+  },
+  {
+    id: '3.1.6',
+    name: 'Pronunciation',
+    level: 'AAA'
+  },
+  {
     id: '3.2.1',
     name: 'On Focus',
     level: 'A'
+  },
+  {
+    id: '3.2.2',
+    name: 'On Input',
+    level: 'A'
+  },
+  {
+    id: '3.2.3',
+    name: 'Consistent Navigation',
+    level: 'AA'
+  },
+  {
+    id: '3.2.4',
+    name: 'Consistent Identification',
+    level: 'AA'
+  },
+  {
+    id: '3.2.5',
+    name: 'Change on Request',
+    level: 'AAA'
   },
   {
     id: '3.3.1',
@@ -168,8 +363,43 @@ export const CRITERIA = [
     level: 'A'
   },
   {
+    id: '3.3.2',
+    name: 'Labels or Instructions',
+    level: 'A'
+  },
+  {
     id: '3.3.3',
     name: 'Error Suggestion',
+    level: 'AA'
+  },
+  {
+    id: '3.3.4',
+    name: 'Error Prevention (Legal, Financial, Data)',
+    level: 'AA'
+  },
+  {
+    id: '3.3.5',
+    name: 'Help',
+    level: 'AAA'
+  },
+  {
+    id: '3.3.6',
+    name: 'Error Prevention (All)',
+    level: 'AAA'
+  },
+  {
+    id: '4.1.1',
+    name: 'Parsing',
+    level: 'A'
+  },
+  {
+    id: '4.1.2',
+    name: 'Name, Role, Value',
+    level: 'A'
+  },
+  {
+    id: '4.1.4',
+    name: 'Status Messages',
     level: 'AA'
   },
 ]

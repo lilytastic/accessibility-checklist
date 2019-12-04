@@ -16,10 +16,20 @@
   </ng-template>
 </div>
 
-<div class="pb-2 text-right">
-  <button class="btn btn-outline-primary" (click)="expandAll()">Expand All</button>
-  &nbsp;
-  <button class="btn btn-outline-primary" (click)="collapseAll()">Collapse All</button>
+<div class="pb-3 mt-5 d-flex align-items-center justify-content-between">
+  <div>
+    <span *ngIf="tasks.length < TASKS.length + 1">
+      Showing <b>{{tasks.length}}</b> tasks out of {{TASKS.length + 1}}
+    </span>
+    <span *ngIf="tasks.length >= TASKS.length + 1">
+      Showing all <b>{{tasks.length}}</b> tasks
+    </span>
+  </div>
+  <div>
+    <button class="btn btn-outline-primary" (click)="expandAll()">Expand All</button>
+    &nbsp;
+    <button class="btn btn-outline-primary" (click)="collapseAll()">Collapse All</button>
+  </div>
 </div>
 
 <div class="pb-5">
@@ -41,7 +51,8 @@
     <div class="d-flex mb-2 small justify-content-between align-items-center">
       <div class="d-flex align-items-start text-secondary">
         <h3 class="heading-3">
-          {{i+1}}. {{task.name}}
+          <span class="task-number">{{i+1}}.</span>
+          {{task.name}}
         </h3>
         <div class="ml-1 btn btn-text text-secondary btn-sm">
           <i class="fas fa-fw fa-{{itemStatus[task.name]?.expanded ? 'caret-down' : 'caret-right'}}"></i>
