@@ -78,10 +78,13 @@
     <div class="mt-2" *ngIf="task.criteria.length">
       <label class="label text-secondary">Further Reading:</label>
       <ng-container *ngFor="let _criteria of task.criteria">
-        <ng-container *ngIf="criteria[_criteria]?.documents">
+        <ng-container *ngIf="criteria[_criteria]?.documents || task.documents">
           <div class="pl-4">
-            <a *ngIf="criteria[_criteria]?.documents.understanding" target="_blank" href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/{{criteria[task.criteria]?.documents.understanding}}.html" class="text-primary">
+            <a *ngIf="criteria[_criteria]?.documents?.understanding" target="_blank" href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/{{criteria[task.criteria]?.documents?.understanding}}.html" class="text-primary">
               <i class="fas fa-fw fa-link"></i> Understanding SC {{_criteria}}
+            </a>
+            <a *ngFor="let link of task.documents" target="_blank" href="{{link.href}}">
+              <i class="fas fa-fw fa-link"></i> {{link.text}}
             </a>
           </div>
         </ng-container>

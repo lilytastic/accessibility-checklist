@@ -4,18 +4,19 @@ export interface Task {
   tasks: {text: string, subtasks?: {text: string}[]}[];
   intent?: string;
   failure?: string;
+  documents?: {text: string, href: string}[];
 }
 
 export const TASKS: Task[] = [
   {
     name: 'Descriptive Alt Text',
     criteria: ['1.1.1'],
-    intent: `Visually-impaired users can't see pictures.`,
+    intent: `Some visually-impaired users can't see pictures.`,
     tasks: [{
       text: `Ensure all images have an <code>alt</code> attribute.`,
       subtasks: [
         {text: `Any image that isn't purely for decoration must have descriptive alt text (<code>alt="A football"</code>).`},
-        {text: `Purely decorative images can have null alt text (<code>alt=""</code>) or be implemented with <code>background-image</code>.`}
+        {text: `Purely decorative images can have null alt text (<code>alt=""</code>) or be implemented as a <code>background-image</code>.`}
       ]
     }]
   },
@@ -41,7 +42,7 @@ export const TASKS: Task[] = [
   {
     name: 'Transcripts',
     criteria: ['1.2.1'],
-    intent: `Hearing-impaired users can't hear audio. Putting raw text in the browser is naturally accessible.`,
+    intent: `Some hearing-impaired users can't hear audio. Putting raw text in the browser is naturally accessible.`,
     tasks: [
       {text: `Ensure all prerecorded audio has transcripts.`},
     ]
@@ -67,13 +68,13 @@ export const TASKS: Task[] = [
   {
     name: 'Captions',
     criteria: ['1.2.4'],
-    intent: `Hearing-impaired users can't hear audio.`,
+    intent: `Some hearing-impaired users can't hear audio.`,
     tasks: [{text: `Ensure all live audio is captioned.`}]
   },
   {
     name: 'Sign Language (Prerecorded)',
     criteria: ['1.2.6'],
-    intent: `Hearing-impaired users can't hear audio.`,
+    intent: `Some hearing-impaired users can't hear audio.`,
     tasks: [{text: `Ensure sign language interpretation is provided for all prerecorded audio content in synchronized media.`}]
   },
   {
@@ -89,6 +90,23 @@ export const TASKS: Task[] = [
         ]
       }
     ]
+  },
+  {
+    name: 'Tab Order',
+    criteria: ['1.3.2'],
+    intent: `Not all users can use a mouse, be it due to visual or movement impairment. Keyboard-only users rely on using <code>TAB</code> to change focus and navigate through the site, which you can try in this application. It's important that the order of elements is intuitive, so it's standard to follow the reading order.`,
+    tasks: [
+      {
+        text: `The arrangement of elements in the DOM must match the order in which those elements are meant to be read.`,
+        subtasks: [
+          {text: `For example, if three buttons are positioned on opposite corners of a page using <code>position: absolute</code>, the DOM must match their actual position relative to other elements.`}
+        ]
+      },
+      {
+        text: `Use the keyboard to navigate through elements and ensure the sequence matches reading order.`
+      }
+    ],
+    documents: [{text: 'Technique C27: Making the DOM order match the visual order', href: 'https://www.w3.org/WAI/WCAG21/Techniques/css/C27.html'}];
   },
   {
     name: 'Reliance on Color',
@@ -117,20 +135,26 @@ export const TASKS: Task[] = [
   {
     name: 'Identify User Errors',
     criteria: ['3.3.1'],
+    intent: `This is just good UX, but it's especially important for those with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users, who otherwise won't see that an error has appeared.`,
     tasks: [
-      {text: `Ensure that if there is a problem with user input (in a form, for example), it is identified and explained to the user through text.`}
+      {text: `Ensure that if there is a problem with user input (in a form, for example), it is identified and explained to the user through text.`},
+      {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that screen readers are informed.`}
     ]
   },
   {
     name: 'Suggest Corrections',
     criteria: ['3.3.3'],
-    tasks: [{
-      text: `Ensure that if there is a problem with user input (in a form, for example), there are suggestions for how to correct it, if possible.`,
-      subtasks: [
-        {text: `If the user is asked to type in a particular month, but the app only accepts the month by name, and the user writes '12', inform the user of the desired format (in this case, 'December').`},
-        {text: `Exceptions are made if doing so jeopardizes security or functionality.`}
-      ]
-    }]
+    intent: `This is just good UX, but it's especially important for those with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users, who otherwise won't see that an error has appeared.`,
+    tasks: [
+      {
+        text: `Ensure that if there is a problem with user input (in a form, for example), there are suggestions for how to correct it, if possible.`,
+        subtasks: [
+          {text: `If the user is asked to type in a particular month, but the app only accepts the month by name, and the user writes '12', inform the user of the desired format (in this case, 'December').`},
+          {text: `Exceptions are made if doing so jeopardizes security or functionality.`}
+        ]
+      },
+      {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that screen readers are informed.`}
+    ]
   }
 ];
 
