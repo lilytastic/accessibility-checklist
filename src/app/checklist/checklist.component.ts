@@ -49,7 +49,6 @@ export class ChecklistComponent implements OnInit {
       .map(x => ({...x, level: this.criteria[x.criteria[0]] ? this.criteria[x.criteria[0]].level : ''}));
 
     this.missingCriteria = CRITERIA.filter(x => x.level !== 'AAA' && !TASKS.find(y => y.criteria.includes(x.id)));
-    console.log(applicableCriteria, TASKS, this.missingCriteria);
     
     if (this.tasks.length) {
       this.tasks.push({

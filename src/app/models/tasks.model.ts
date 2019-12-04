@@ -140,12 +140,12 @@ export const TASKS: Task[] = [
   {
     name: 'Identify Input Purpose',
     criteria: ['1.3.5'],
-    intent: 'This will make filling out forms much easier for those with cognitive disabilities.',
+    intent: 'This will make filling out forms much easier for users with cognitive disabilities.',
     tasks: [
       {
         text: `Ensure the purposes of all form inputs are communicated properly.`,
         subtasks: [
-          {text: `The purpose of the field must be programmatically determinable for those with screen readers and other assistive technologies. Use appropriate labels and HTML attributes such as <code>autocomplete</code>.`}
+          {text: `The purpose of the field must be programmatically determinable for users with screen readers and other assistive technologies. Use appropriate labels and HTML attributes such as <code>autocomplete</code>.`}
         ]
       }
     ]
@@ -182,7 +182,7 @@ export const TASKS: Task[] = [
   {
     name: 'Contrast (1)',
     criteria: ['1.4.3', '1.4.11'],
-    intent: `The standard contrast ratio makes things readable for those with low or impaired vision. And normal vision.`,
+    intent: `The standard contrast ratio keeps things readable, especially for users with low or impaired vision.`,
     encapsulatedBy: ['1.4.6'],
     tasks: [
       {
@@ -230,7 +230,7 @@ export const TASKS: Task[] = [
   {
     name: 'Contrast (2)',
     criteria: ['1.4.6'],
-    intent: `People with impaired vision.`,
+    intent: `The standard contrast ratio keeps things readable, especially for users with low or impaired vision.`,
     tasks: [
       {
         text: `Ensure a contrast ratio of at least 4.5:1 on all elements.`,
@@ -342,6 +342,34 @@ export const TASKS: Task[] = [
     ]
   },
   {
+    name: `No Timed Challenges`,
+    criteria: ['2.2.1'],
+    intent: 'Time limits are disproportionally challenging for users of assistive technologies, as well as those with low mobility or cognitive impairments.',
+    tasks: [
+      {
+        text: `Ensure there are no unnecessary time limits.`,
+        subtasks: [
+          {text: `Time limits are allowed if the user can pause, adjust, or extend the timer at least 20 seconds before it expires.`},
+          {text: `Exceptions apply if the time limit is longer than 20 hours, is essential for the app to function, or is based on some real-world timer (like an auction) for which no alternative exists.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'No Blinking',
+    criteria: ['2.2.2'],
+    intent: `Users with cognitive disabilities can be vulnerable to distraction, and may be strongly affected by flashing or scrolling content.`,
+    tasks: [
+      {
+        text: 'Ensure all moving content can be paused and/or hidden.',
+        subtasks: [
+          {text: `This includes flashing, blinking, scrolling, or auto-updating content.`},
+          {text: `This only applies if said content starts automatically, lasts more than 5 seconds, and is displayed parallel with other content (i.e. not the sole content on the page).`}
+        ]
+      }
+    ]
+  },
+  {
     name: 'Visible Focus',
     criteria: ['2.4.7'],
     intent: `Because keyboard users don't have a cursor, this is how they track where they are on the page.`,
@@ -358,18 +386,18 @@ export const TASKS: Task[] = [
   {
     name: 'No Tiny Buttons',
     criteria: ['2.5.5'],
-    intent: `This is already best practice for mobile UX, but it's also important for those with impaired mobility, who may lack precision with a cursor.`,
+    intent: `This is already best practice for mobile UX, but it's also important for users with impaired mobility, who may lack precision with a cursor.`,
     tasks: [
       {
         text: `Ensure the target area of all buttons (i.e. the area that actually receives clicks) is at least 44x44 pixels in size.`,
-        subtasks: [{text: `Note that the target area doesn't have to match the graphic. A 'ghost button' with a small icon is acceptable so long as the target area is 44x44.`}]
+        subtasks: [{text: `Note that the target area doesn't have to match the graphic. A 'ghost button' with a small icon is acceptable so long as the target area is 44x44. The button to expand/collapse tasks in this application use this technique.`}]
       }
     ]
   },
   {
     name: 'High School Reading Level',
     criteria: ['3.1.5'],
-    intent: `This is just good UX, but it's especially important for those with cognitive disabilities.`,
+    intent: `This is just good UX, but it's especially important for users with cognitive disabilities.`,
     tasks: [
       {
         text: `Ensure all content is written as clearly and simply as possible, and is below a high school reading level.`,
@@ -387,7 +415,7 @@ export const TASKS: Task[] = [
       text: `Ensure nothing changes the context of the page when it receives focus.`,
       subtasks: [
         {text: `"Change of context" is defined as changes to the user agent, viewport, focus, or any content that changes the meaning of the page.`},
-        {text: `A tooltip appearing when a button receives focus does <b>not</b> violate this criteria, unless focus is then put on the tooltip.`},
+        {text: `A tooltip appearing when a button receives focus does <b>not</b> violate this criteria, unless focus is moved to the tooltip automatically.`},
         {text: `A modal/lightbox popping up when a button receives focus <b>does</b> violate this criteria.`}
       ]
     }]
@@ -395,7 +423,7 @@ export const TASKS: Task[] = [
   {
     name: 'Identify User Errors',
     criteria: ['3.3.1'],
-    intent: `This is just good UX, but it's especially important for those with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users, who otherwise won't see that an error has appeared.`,
+    intent: `This is just good UX, but it's especially important for users with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users, who otherwise won't see that an error has appeared.`,
     tasks: [
       {text: `Ensure that if there is a problem with user input (in a form, for example), it is identified and explained to the user through text.`},
       {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that errors can be announced via screen reader.`}
@@ -404,7 +432,7 @@ export const TASKS: Task[] = [
   {
     name: 'Suggest Corrections',
     criteria: ['3.3.3'],
-    intent: `This is just good UX, but it's especially important for those with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users, who otherwise won't see that an error has appeared.`,
+    intent: `This is just good UX, but it's especially important for users with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users, who otherwise won't see that an error has appeared.`,
     tasks: [
       {
         text: `Ensure that if there is a problem with user input (in a form, for example), there are suggestions for how to correct it, if possible.`,

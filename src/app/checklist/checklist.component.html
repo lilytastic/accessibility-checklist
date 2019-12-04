@@ -33,7 +33,7 @@
 </div>
 
 <div class="pb-5">
-  <button (click)="toggleExpand(task.name)" class="task btn btn-primary mb-3" *ngFor="let task of tasks; let i = index"
+  <div class="task mb-3" *ngFor="let task of tasks; let i = index"
       [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
     <div class="d-flex mb-2 small justify-content-between align-items-center">
       <div class="d-flex align-items-start text-secondary">
@@ -41,9 +41,9 @@
           <span class="task-number">{{i+1}}.</span>
           {{task.name}}
         </h3>
-        <div class="ml-1 btn btn-text text-secondary btn-sm">
+        <button (click)="toggleExpand(task.name)" class="expand-btn ml-2 btn btn-sm">
           <i class="fas fa-fw fa-{{itemStatus[task.name]?.expanded ? 'caret-down' : 'caret-right'}}"></i>
-        </div>
+        </button>
       </div>
       <div class="text-secondary" *ngIf="task.criteria.length">
         WCAG
@@ -55,7 +55,7 @@
     </div>
     <ng-container *ngTemplateOutlet="(itemStatus[task.name]?.expanded ? full : basic); context: { task: task }">
     </ng-container>
-  </button>
+  </div>
 
   <div>
     This document is a work in progress, and is missing tasks for the following WCAG criteria:
@@ -124,7 +124,7 @@
 <ng-template #basic let-task="task">
   <ul>
     <li *ngFor="let text of task.tasks">
-      <span [innerHTML]="text.text"></span> <span class="small d-inline-block ml-2 text-secondary" *ngIf="text.subtasks"><i class="fas small fa-ellipsis-h"></i></span>
+      <span [innerHTML]="text.text"></span> <button class="small btn btn-sm d-inline-block ml-2 text-secondary" *ngIf="text.subtasks"><i class="fas small fa-ellipsis-h"></i></button>
     </li>
   </ul>
 </ng-template>
