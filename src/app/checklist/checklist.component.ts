@@ -40,16 +40,11 @@ export class ChecklistComponent implements OnInit {
     CRITERIA.forEach(x => this.criteria[x.id] = x);
     this.roleStatus = JSON.parse(window.localStorage.getItem('roles') || '{}');
     this.itemStatus = JSON.parse(window.localStorage.getItem('itemStatus') || '{}');
-    const applicableCriteria = this.selectedRoles
-      .map(x => ROLES.find(y => y.id === x).applicableCriteria)
-      .reduce((acc, curr) => {acc = [...acc, ...curr.filter(x => !acc.find(y => y === x))]; return acc;}, []);
 
-    this.tasks = TASKS
-      .filter(x => !applicableCriteria.length || applicableCriteria.filter(c => x.criteria.includes(c)).length)
-      .map(x => ({...x, level: this.criteria[x.criteria[0]] ? this.criteria[x.criteria[0]].level : ''}));
+    this.tasks = this.getTasks();
       // .sort((a, b) => (this.levelPriority[(this.criteria[a.criteria[0]]||{level:'A'}).level] - this.levelPriority[(this.criteria[b.criteria[0]]||{level:'A'}).level]));
 
-    this.missingCriteria = CRITERIA.filter(x => x.level !== 'AAA' && !TASKS.find(y => y.criteria.includes(x.id)));
+    this.missingCriteria = CRITERIA.filter(x => x.level === 'AAA' && !TASKS.find(y => y.criteria.includes(x.id)));
     
     if (this.tasks.length) {
       this.tasks.push({
@@ -68,6 +63,16 @@ export class ChecklistComponent implements OnInit {
 
   collapseAll() {
     this.tasks.forEach(x => {this.itemStatus[x.name] = this.itemStatus[x.name] || {expanded: false}; this.itemStatus[x.name].expanded = false;});
+  }
+
+  getTasks() {
+    const applicableCriteria = this.selectedRoles
+      .map(x => ROLES.find(y => y.id === x).applicableCriteria)
+      .reduce((acc, curr) => {acc = [...acc, ...curr.filter(x => !acc.find(y => y === x))]; return acc;}, []);
+
+    return TASKS
+      .filter(x => !applicableCriteria.length || applicableCriteria.filter(c => x.criteria.includes(c)).length)
+      .map(x => ({...x, level: this.criteria[x.criteria[0]] ? this.criteria[x.criteria[0]].level : ''}));
   }
 
   getRelated(task: Task) {

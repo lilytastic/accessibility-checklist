@@ -398,7 +398,7 @@ export const CRITERIA = [
     level: 'A'
   },
   {
-    id: '4.1.4',
+    id: '4.1.3',
     name: 'Status Messages',
     level: 'AA'
   },

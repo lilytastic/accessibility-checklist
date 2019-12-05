@@ -69,11 +69,11 @@
     </ng-container>
   </div>
 
-  <div>
-    This document is a work in progress, and is missing tasks for the following WCAG criteria:
+  <div *ngIf="missingCriteria.length" class="mt-3">
+    This document is a work in progress, and is missing tasks for {{missingCriteria.length}} optional WCAG criteria:
     <ul>
       <li *ngFor="let criteria of missingCriteria">
-        {{criteria.id}} ({{criteria.level}}): {{criteria.name}}
+        <a class="text-secondary" href="https://www.w3.org/TR/WCAG21/#{{criteria[criteria]?.criteriaId || (criteria[_criteria]?.name | kebab)}}">{{criteria.id}} ({{criteria.level}}): {{criteria.name}}</a>
       </li>
     </ul>
   </div>

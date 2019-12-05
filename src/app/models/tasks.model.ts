@@ -253,12 +253,20 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'Allow 400% Zoom',
+    name: 'Reflow for Small Resolutions',
     criteria: ['1.4.10'],
-    intent: `Users with low or impaired vision will want to enlarge text to make it more readable, using the zoom function built into most browsers.`,
+    intent: `Users with low or impaired vision will want to enlarge text to make it more readable, using the zoom function built into most browsers. This criteria ensures that a user with a 1280px wide screen can zoom up to 400%.`,
     tasks: [
       {
-        text: `Ensure that when the user zooms in by 400%, there is no loss of information, and that the user is not forced to scroll vertically <i>and</i> horizontally to see content.`,
+        text: `Ensure that at narrow resolutions (320px and up), there is no loss of information, and that the user is not forced to scroll vertically <i>and</i> horizontally to see content.`,
+        subtasks: [
+          {
+            text: `Horizontally-scrolling applications should work at resolutions with a height of 256px and above.`
+          },
+          {
+            text: `This generally goes hand-in-hand with making a responsive app.`
+          }
+        ]
       }
     ]
   },
@@ -358,18 +366,20 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'No Blinking',
+    name: 'No Movement',
     criteria: ['2.2.2'],
-    intent: `Users with cognitive disabilities can be vulnerable to distraction, and may be strongly affected by flashing or scrolling content.`,
+    intent: `Users with cognitive disabilities can be vulnerable to distraction, and may be strongly affected by moving or flashing content.`,
     tasks: [
       {
         text: 'Ensure all moving content can be paused and/or hidden.',
         subtasks: [
           {text: `This includes flashing, blinking, scrolling, or auto-updating content.`},
-          {text: `This only applies if said content starts automatically, lasts more than 5 seconds, and is displayed parallel with other content (i.e. not the sole content on the page).`}
+          {text: `This only applies if said content starts automatically, lasts more than 5 seconds, and is displayed parallel with other content (i.e. not the sole content on the page).`},
+          {text: `An accepted technique is to give the user a mechanism to reload the page without the blinking content &ndash; i.e. a 'Reduce Motion' option. See Technique G191.`}
         ]
       }
-    ]
+    ],
+    documents: [{text: 'Technique G191: Providing a link, button, or other mechanism that reloads the page without any blinking content', href: 'https://www.w3.org/WAI/WCAG21/Techniques/general/G191'}]
   },
   {
     name: 'No Flashing (1)',
@@ -462,13 +472,23 @@ export const TASKS: Task[] = [
     ]
   },
   {
-    name: 'Multiple Navigation Routes',
+    name: 'Multiple Navigation Methods',
     criteria: ['2.4.5'],
-    intent: `Users with may find different methods of navigation easier or more comprehensible. Visually impaired may find it easier to use a search rather than sift through links, while someone with cognitive disabilities may prefer a site map.`,
+    intent: `Users with may find different methods of navigation easier or more comprehensible. Visually impaired users may find it easier to use a search bar rather than sifting through a site map, while someone with cognitive disabilities may prefer the site map.`,
     tasks: [
       {
-        text: `Ensure there are multiple ways to access each page, unless those pages are one step in a process.`,
-        subtasks: [{text: `Suggestions include a navigation bar, search, or a site map.`}]
+        text: `Ensure there are multiple ways to access each page, unless those pages are one step in a larger process.`,
+        subtasks: [{text: `Suggestions include having a navigation bar, search, and site map.`}]
+      }
+    ]
+  },
+  {
+    name: 'Descriptive Headings and Labels',
+    criteria: ['2.4.6'],
+    intent: `This is just good UX, and it helps all users navigate and understand the content more quickly. This is especially important for those with cognitive disabilities.`,
+    tasks: [
+      {
+        text: `Ensure the copy for all headings and labels should describe the topic or purpose of the element they're associated with.`
       }
     ]
   },
@@ -484,6 +504,17 @@ export const TASKS: Task[] = [
           {text: `Clicks also trigger the focus state. This will result in said outline appearing on buttons/links after you click them. However, <i>please don't let this stop you from making the focus state as bright, bold, and visible as possible</i>. De-emphasizing the focus state for aesthetic purposes will severely damage the experience for keyboard users.`}
         ]
       },
+    ]
+  },
+  {
+    name: 'No Complex Gestures',
+    criteria: ['2.5.1'],
+    intent: `This ensures that the app can be controlled with a wide range of pointing devices, assistive technologies, and user abilities. As gestures become more complex, certain methods of input are excluded.`,
+    tasks: [
+      {
+        text: `Ensure everything in the app can be done with a single pointer and without having to draw a path.`,
+        subtasks: [{text: `Do not require multi-touch or path-based gestures without providing a fallback.`}, {text: `Exceptions apply if said gestures are essential, such as path-based gestures for e-signatures.`}]
+      }
     ]
   },
   {
@@ -505,13 +536,60 @@ export const TASKS: Task[] = [
     ]
   },
   {
+    name: 'Labels Match Names',
+    criteria: ['2.5.3'],
+    intent: 'This alleviates confusion for those with assistive technologies, which read the DOM directly and thus see the <code>name</code> attribute as well as the label.',
+    tasks: [
+      {
+        text: `Ensure the visible label of an element matches its <code>name</code> attribute.`,
+        subtasks: [
+          {text: `Don't label an input field "Address" and give it the <code>name</code> "user_location".`},
+          {text: `If no label exists, this criteria does not apply.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'No Motion Controls',
+    criteria: ['2.5.4'],
+    intent: 'Motion controls exclude users with low mobility.',
+    tasks: [
+      {
+        text: `Ensure no motion controls are used without an alternative, accessible form of input.`
+      }
+    ]
+  },
+  {
     name: 'No Tiny Buttons',
     criteria: ['2.5.5'],
     intent: `This is already best practice for mobile UX, but it's also important for users with impaired mobility, who may lack precision with a cursor.`,
     tasks: [
       {
-        text: `Ensure the target area of all buttons (i.e. the area that actually receives clicks) is at least 44x44 pixels in size.`,
-        subtasks: [{text: `Note that the target area doesn't have to match the graphic. A 'ghost button' with a small icon is acceptable so long as the target area is 44x44. For example, the buttons to expand and collapse tasks in this app use this technique.`}]
+        text: `Ensure the target area of all links and buttons (i.e. the area that actually receives clicks) is at least 44x44 pixels in size.`,
+        subtasks: [
+          {text: `Note that the target area doesn't have to match the graphic. A 'ghost button' with a small icon is acceptable so long as the target area is 44x44. The buttons to expand and collapse tasks in this app use this technique.`},
+          {text: `Exceptions apply if the link or button is inline (like hyperlinks), or if there are multiple links/buttons on the page with the same function and one of them is at least 44x44 pixels.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Determinable Language (1)',
+    criteria: ['3.1.1'],
+    intent: `Assistive technologies need this to present text correctly.`,
+    tasks: [
+      {
+        text: `Ensure the language of the page can be determined by the <code>lang</code> attribute of the HTML document.`,
+      }
+    ]
+  },
+  {
+    name: 'Determinable Language (2)',
+    criteria: ['3.1.2'],
+    intent: `Assistive technologies need this to present text correctly.`,
+    tasks: [
+      {
+        text: `Ensure the language of each phrase and element of the page can be determined by its <code>lang</code> attribute, if it's different from the language of the whole page.`,
       }
     ]
   },
@@ -535,11 +613,48 @@ export const TASKS: Task[] = [
     tasks: [{
       text: `Ensure nothing changes the context of the page when it receives focus.`,
       subtasks: [
-        {text: `"Change of context" is defined as changes to the user agent, viewport, focus, or any content that changes the meaning of the page.`},
-        {text: `A tooltip appearing when a button receives focus does <b>not</b> violate this criteria, unless focus is moved to the tooltip automatically.`},
-        {text: `A modal/lightbox popping up when a button receives focus <b>does</b> violate this criteria.`}
+        {text: `"Change of context" is defined as any content that changes the meaning of the page, as well as changes to viewport, focus, or user agent.`},
+        {text: `A tooltip appearing when a button receives focus does <em>not</em> violate this criteria, unless focus is moved to the tooltip automatically.`},
+        {text: `A modal/lightbox popping up when a button receives focus <em>does</em> violate this criteria.`}
       ]
     }]
+  },
+  {
+    name: `Input Doesn't Trigger Major Change`,
+    criteria: ['3.2.2'],
+    intent: `This is just good UX &ndash; If entering input causes your cursor to move, or a modal to pop up, the user becomes disoriented.`,
+    tasks: [{
+      text: `Ensure input never changes the context of the page.`,
+      subtasks: [
+        {text: `"Change of context" is defined as any content that changes the meaning of the page, as well as changes to viewport, focus, or user agent.`},
+        {text: `A button being enabled as the user enters input does <em>not</em> violate this criteria, unless focus is automatically moved to the button while the user is entering input.`},
+        {text: `A modal/lightbox popping up when entering input <em>does</em> violate this criteria.`}
+      ]
+    }]
+  },
+  {
+    name: 'Consistent Navigation',
+    criteria: ['3.2.3'],
+    intent: 'Consistent presentation is important for those with low vision &ndash; or anyone who only sees only a small part of the page at a time &ndash; who need to find something more than once.',
+    tasks: [
+      {
+        text: `Ensure any navigational component that appears across multiple pages is consistent, unless the user initiates a change.`,
+        subtasks: [{text: `Links in a navigation bar (or sidebar) must be in the same order wherever it appears.`}]
+      }
+    ]
+  },
+  {
+    name: 'Consistent Identification',
+    criteria: ['3.2.4'],
+    intent: 'People who use screen readers may rely heavily on their familiarity with known components and functions as they navigate a site.',
+    tasks: [
+      {
+        text: `Ensure icons and components with the same functionality on multiple pages are consistent.`,
+        subtasks: [
+          {text: `If a checkmark icon functions as "approved" on one page, but as "included" on another, give it different labels to make it distinct.`}
+        ]
+      }
+    ]
   },
   {
     name: 'Identify User Errors',
@@ -549,6 +664,15 @@ export const TASKS: Task[] = [
       {text: `Ensure that if there is a problem with user input (in a form, for example), it is identified and explained to the user through text.`},
       {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that errors can be announced via screen reader.`}
     ]
+  },
+  {
+    name: 'Provide Labels and Instructions',
+    criteria: ['3.3.2'],
+    intent: `This is just good UX, but it's especially important for users with cognitive disabilities.`,
+    tasks: [
+      {text: `Ensure that all input fields have descriptive labels and, if there are rules to follow, instructions for filling them out.`}
+    ],
+    related: ['1.3.1', '4.1.2', '2.4.6']
   },
   {
     name: 'Suggest Corrections',
@@ -564,21 +688,50 @@ export const TASKS: Task[] = [
       },
       {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that errors can be announced via screen reader.`}
     ]
+  },
+  {
+    name: 'Prevent Errors',
+    criteria: ['3.3.4'],
+    intent: `This is just good UX, but it's especially important for users with cognitive disabilities.`,
+    tasks: [
+      {
+        text: `Ensure submissions can either be reviewed, checked for errors, or reversed.`,
+        subtasks: [{text: `This applies to anything that modifies or deletes user data, submits user test responses, or causes legal or financial obligations to occur.`}]
+      }
+    ]
+  },
+  {
+    name: 'Write Valid HTML',
+    criteria: ['4.1.1'],
+    intent: `This is important in general, and is needed for assistive technologies to work.`,
+    tasks: [
+      {
+        text: `Ensure HTML is valid. All tags must be closed in the same order they were opened, all IDs must be unique, and so on.`
+      }
+    ]
+  },
+  {
+    name: `Usability`,
+    criteria: ['4.1.2'],
+    intent: `This allows people with assistive technologies (like screen readers) to use every UI component.`,
+    tasks: [
+      {
+        text: `Ensure every UI component that takes user input has a <code>name</code> and <code>role</code>, accepts input from assistive technologies, and can notify assistive technologies of any changes in state.`,
+      }
+    ]
+  },
+  {
+    name: `Proper Status Messages`,
+    criteria: ['4.1.3'],
+    intent: `This allows people with assistive technologies (like screen readers) to know when something has changed.`,
+    tasks: [
+      {
+        text: `Present status messages to make users aware of important changes in content that isn't in focus, without changing the context of the page.`,
+        subtasks: [
+          {text: `"Change of context" is defined as any content that changes the meaning of the page, such as modals, as well as changes to viewport, focus, or user agent.`},
+          {text: `The best way to meet this criteria is by <em>adding new text to the screen</em> and surfacing that for assistive technologies, possibly with <code>aria-live</code>. See "Understanding 4.1.3".`}
+        ]
+      }
+    ]
   }
 ];
-
-/*
-- Ensure nothing changes the context of the page when it receives focus.
-
-- "Change of context" is defined as changes in:
-1) user agent;
-2) viewport;
-3) focus;
-4) content that changes the meaning of the Web page
-
-- Important for 4): "A change of CONTENT is not always a change of CONTEXT. Changes in content, such as an expanding outline, DYNAMIC MENU, or a tab control do not necessarily change the context, unless they also change one of the above (e.g., focus)." (emphasis added)
-
-- So a tooltip appearing on hover/focus does not change context UNLESS you put the user's focus on the tooltip as soon as it appears.
-- A modal/lightbox appearing on hover/focus would also change the context. Therefore:
-- A button to open a modal should NOT open the model if a user presses TAB and switches focus to it. It should require the button to be pressed.
-*/
