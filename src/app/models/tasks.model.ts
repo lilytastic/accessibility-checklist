@@ -204,7 +204,7 @@ export const TASKS: Task[] = [
   {
     name: `Allow 200% Zoom`,
     criteria: ['1.4.4'],
-    encapsulatedBy: ['1.4.5'],
+    encapsulatedBy: ['1.4.10'],
     intent: `Users with low or impaired vision will want to enlarge text to make it more readable, using the zoom function built into most browsers.`,
     tasks: [
       {
@@ -462,6 +462,17 @@ export const TASKS: Task[] = [
     ]
   },
   {
+    name: 'Multiple Navigation Routes',
+    criteria: ['2.4.5'],
+    intent: `Users with may find different methods of navigation easier or more comprehensible. Visually impaired may find it easier to use a search rather than sift through links, while someone with cognitive disabilities may prefer a site map.`,
+    tasks: [
+      {
+        text: `Ensure there are multiple ways to access each page, unless those pages are one step in a process.`,
+        subtasks: [{text: `Suggestions include a navigation bar, search, or a site map.`}]
+      }
+    ]
+  },
+  {
     name: 'Visible Focus',
     criteria: ['2.4.7'],
     intent: `Because keyboard users don't have a cursor, this is how they track where they are on the page.`,
@@ -473,6 +484,24 @@ export const TASKS: Task[] = [
           {text: `Clicks also trigger the focus state. This will result in said outline appearing on buttons/links after you click them. However, <i>please don't let this stop you from making the focus state as bright, bold, and visible as possible</i>. De-emphasizing the focus state for aesthetic purposes will severely damage the experience for keyboard users.`}
         ]
       },
+    ]
+  },
+  {
+    name: 'Allow Pointer Cancellation',
+    criteria: ['2.5.2'],
+    intent: `This is good UX in general, as it helps prevent accidental input. It's especially important for those with impaired mobility.`,
+    tasks: [
+      {
+        text: `Ensure that no button or link is triggered simply by pressing down on the mouse button &ndash; nothing should happen until the button is released.`,
+        subtasks: [{text: `Specifically, ensure that <em>one</em> of the following is true:
+          <ul>
+            <li>Execution happens on OnPointerUp, and there is a way to abort after OnPointerDown is triggered (i.e. by moving the pointer away from the element before releasing the mouse button). This tends to be the default behaviour for built-in button elements.</li>
+            <li>OnPointerDown is not used to execute.</li>
+            <li>OnPointerUp reverses whatever OnPointerDown triggers.</li>
+            <li>Executing on OnPointerDown is essential for the app to function.</li>
+          </ul>`},
+        {text: `OnPointerDown is when you press down on the mouse button, and OnPointerUp is when you release it. This also applies to trackpads and touch screens. It's for any pointer-based input, hence why it's called OnPointerDown and not OnMouseButtonDown. Same concept.`}]
+      }
     ]
   },
   {

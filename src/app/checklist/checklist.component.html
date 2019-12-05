@@ -42,7 +42,7 @@
           {{task.name}}
           <a [routerLink]="['/', 'checklist']" fragment="{{task.name | kebab}}" class="anchor-link text-primary">&nbsp;#&nbsp;</a>
         </h3>
-        <div *ngIf="task.related">
+        <div *ngIf="getRelated(task).length">
           Related to
           <span *ngFor="let otherTask of getRelated(task); let i = index">
             <span *ngIf="i > 0"> &middot; </span>
@@ -51,7 +51,7 @@
             </a>
           </span>
         </div>
-        <div *ngIf="task.encapsulatedBy">
+        <div *ngIf="getEncapsulatedBy(task).length">
           Encapsulated by
           <span *ngFor="let otherTask of getEncapsulatedBy(task); let i = index">
             <span *ngIf="i > 0"> &middot; </span>

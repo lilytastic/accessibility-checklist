@@ -71,11 +71,11 @@ export class ChecklistComponent implements OnInit {
   }
 
   getRelated(task: Task) {
-    return this.tasks.map((x, i) => x.criteria.filter(y => task.related.includes(y)).length ? {name: x.name, id: i} : null).filter(x => x !== null);
+    return this.tasks.map((x, i) => x.criteria.filter(y => task.related && task.related.includes(y)).length ? {name: x.name, id: i} : null).filter(x => x !== null);
   }
 
   getEncapsulatedBy(task: Task) {
-    return this.tasks.map((x, i) => x.criteria.filter(y => task.encapsulatedBy.includes(y)).length ? {name: x.name, id: i} : null).filter(x => x !== null);
+    return this.tasks.map((x, i) => x.criteria.filter(y => task.encapsulatedBy && task.encapsulatedBy.includes(y)).length ? {name: x.name, id: i} : null).filter(x => x !== null);
   }
 
   getApplicableRoles(roles: string[], criteria: string[]) {
