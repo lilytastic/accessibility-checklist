@@ -357,7 +357,7 @@ export const TASKS: Task[] = [
     intent: 'Time limits are disproportionally challenging for users of assistive technologies, as well as those with low mobility or cognitive impairments.',
     tasks: [
       {
-        text: `Ensure there are no unnecessary time limits.`,
+        text: `Ensure there are no time limits, unless they can be extended or paused.`,
         subtasks: [
           {text: `Time limits are allowed if the user can pause, adjust, or extend the timer at least 20 seconds before it expires.`},
           {text: `Exceptions apply if the time limit is longer than 20 hours, is essential for the app to function, or is based on some real-world timer (like an auction) for which no alternative exists.`}
