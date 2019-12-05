@@ -1,7 +1,7 @@
 
 <a [routerLink]="['/', 'setup']" class="btn p-0 btn-lg btn-link"><i class="fas fa-angle-left"></i>&nbsp; My Roles</a>
 
-<div class="text-center mt-3 mb-4">
+<div class="text-center mt-5 mb-4">
   <h2>My Checklist</h2>
   <p class="paragraph" *ngIf="selectedRoles.length; else allRoles">
     This is everything you can do to improve accessibility in our applications, based on your chosen roles
@@ -16,8 +16,8 @@
   </ng-template>
 </div>
 
-<div class="pb-3 mt-5 d-flex align-items-center justify-content-between">
-  <div>
+<div class="pb-3 mt-5 row align-items-center justify-content-between text-center">
+  <div class="col-sm-auto my-2">
     <span *ngIf="tasks.length < TASKS.length + 1">
       Showing <b>{{tasks.length}}</b> tasks out of {{TASKS.length + 1}}
     </span>
@@ -25,7 +25,7 @@
       Showing all <b>{{tasks.length}}</b> tasks
     </span>
   </div>
-  <div>
+  <div class="col-sm-auto">
     <button class="btn btn-outline-primary" (click)="expandAll()">Expand All</button>
     &nbsp;
     <button class="btn btn-outline-primary" (click)="collapseAll()">Collapse All</button>
@@ -33,14 +33,33 @@
 </div>
 
 <div class="pb-5">
-  <div class="task mb-4" *ngFor="let task of tasks; let i = index"
+  <div class="task mb-4" *ngFor="let task of tasks; let i = index" [attr.name]="task.name | kebab" [attr.id]="task.name | kebab"
       [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
     <div class="d-flex mb-2 small justify-content-between align-items-start">
-      <div class="d-flex align-items-start text-secondary">
+      <div class="text-secondary w-100">
         <h3 class="heading-3">
           <span class="task-number">{{i+1}}.</span>
           {{task.name}}
+          <a [routerLink]="['/', 'checklist']" fragment="{{task.name | kebab}}" class="anchor-link text-primary">&nbsp;#&nbsp;</a>
         </h3>
+        <div *ngIf="task.related">
+          Related to
+          <span *ngFor="let otherTask of getRelated(task); let i = index">
+            <span *ngIf="i > 0"> &middot; </span>
+            <a class="text-weight-bold text-secondary" [routerLink]="['/', 'checklist']" fragment="{{otherTask.name | kebab}}">
+              {{otherTask.id + 1}}: {{otherTask?.name}}
+            </a>
+          </span>
+        </div>
+        <div *ngIf="task.encapsulatedBy">
+          Encapsulated by
+          <span *ngFor="let otherTask of getEncapsulatedBy(task); let i = index">
+            <span *ngIf="i > 0"> &middot; </span>
+            <a class="text-weight-bold text-secondary" [routerLink]="['/', 'checklist']" fragment="{{otherTask.name | kebab}}">
+              {{otherTask.id + 1}}: {{otherTask?.name}}
+            </a>
+          </span>
+        </div>
       </div>
       <button (click)="toggleExpand(task.name)" class="expand-btn ml-2 text-secondary btn btn-sm">
         <i class="fas fa-fw fa-{{!itemStatus[task.name]?.expanded ? 'chevron-up' : 'chevron-down'}}"></i>
@@ -74,11 +93,11 @@
 
   <div class="small">
     <div class="text-secondary mt-2" *ngIf="task.criteria.length">
-      <label class="label text-secondary">Related Criteria:</label>
+      <label class="label text-secondary">Relevant Criteria:</label>
       <div class="pl-4">
         <span *ngFor="let _criteria of task.criteria; let i = index">
           <span *ngIf="i > 0"> &middot; </span>
-          <a target="_blank" class="text-secondary" href="https://www.w3.org/TR/WCAG21/#{{criteria[_criteria]?.criteriaId || (criteria[_criteria]?.name | kebab)}}">
+          <a target="_blank" class="btn-link text-secondary" href="https://www.w3.org/TR/WCAG21/#{{criteria[_criteria]?.criteriaId || (criteria[_criteria]?.name | kebab)}}">
             {{_criteria}} ({{criteria[_criteria]?.level || '?'}}):
             {{criteria[_criteria]?.name}}
           </a>

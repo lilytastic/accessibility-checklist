@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import url('https://use.typekit.net/mjg4vrb.css');
 @import url('https://use.typekit.net/zkr6tpy.css');
 
 $palette-blues: #d4eff9 #68c7e9 #26afdf #027baf #13576f;
@@ -96,6 +96,14 @@ ul {
     ul ul {
         font-size: 80%;
     }
+}
+
+h1, h2 {
+    font-family: 'proxima-nova', Helvetica, sans-serif;
+    font-weight: 600;
+}
+h1, h2 {
+    text-transform: uppercase;
 }
 
 .btn {

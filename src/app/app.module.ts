@@ -23,7 +23,7 @@ const ROUTES = [
   imports: [
     BrowserModule,
     SharedModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES, {anchorScrolling: 'enabled'})
   ],
   providers: [],
   bootstrap: [AppComponent]

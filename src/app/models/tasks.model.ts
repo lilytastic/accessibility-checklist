@@ -3,6 +3,7 @@ export interface Task {
   name: string;
   tasks: {text: string, subtasks?: {text: string}[]}[];
   encapsulatedBy?: string[],
+  related?: string[],
   intent?: string;
   failure?: string;
   documents?: {text: string, href: string}[];
@@ -113,6 +114,7 @@ export const TASKS: Task[] = [
         text: `If you don't have access to the DOM, use the keyboard to navigate through elements and ensure the sequence matches the order in which those elements are read.`
       }
     ],
+    related: ['2.4.3'],
     documents: [{text: 'Technique C27: Making the DOM order match the visual order', href: 'https://www.w3.org/WAI/WCAG21/Techniques/css/C27.html'}]
   },
   {
@@ -202,6 +204,7 @@ export const TASKS: Task[] = [
   {
     name: `Allow 200% Zoom`,
     criteria: ['1.4.4'],
+    encapsulatedBy: ['1.4.5'],
     intent: `Users with low or impaired vision will want to enlarge text to make it more readable, using the zoom function built into most browsers.`,
     tasks: [
       {
@@ -369,6 +372,96 @@ export const TASKS: Task[] = [
     ]
   },
   {
+    name: 'No Flashing (1)',
+    criteria: ['2.3.1'],
+    encapsulatedBy: ['2.3.2'],
+    intent: `This criteria protects photosensitive users, who may have a seizure if content flashes more than a few times.`,
+    tasks: [
+      {
+        text: "Ensure that nothing ever flashes more than three times in one second.",
+        subtasks: [
+          {text: `There are some <em>very</em> technical exceptions. See the definition for General Flash and Red Flash Thresholds.`}
+        ]
+      },
+    ],
+    documents: [
+      {text: 'Definition: General Flash and Red Flash Thresholds', href: 'https://www.w3.org/TR/WCAG21/#dfn-general-flash-and-red-flash-thresholds'}
+    ]
+  },
+  {
+    name: 'No Flashing (2)',
+    criteria: ['2.3.2'],
+    intent: `This criteria protects photosensitive users, who may have a seizure if content flashes more than a few times.`,
+    tasks: [
+      {
+        text: "Ensure that nothing ever flashes more than three times in one second <em>without exception</em>.",
+        subtasks: [
+          {text: `Three shalt be the number thou shalt count, and the number of the counting shall be three.`},
+          {text: `Four thou shalt not count.`},
+          {text: `Five is right out.`}
+        ]
+      },
+    ],
+    related: ['2.3.1'],
+    documents: [
+      {text: 'Definition: General Flash and Red Flash Thresholds', href: 'https://www.w3.org/TR/WCAG21/#dfn-general-flash-and-red-flash-thresholds'}
+    ]
+  },
+  {
+    name: 'Skip to Content',
+    criteria: ['2.4.1'],
+    intent: `Because keyboard users don't have a cursor, they have to <code>TAB</code> through each element on a page. If there's a navigation bar, the user would have to tab through each link before getting to the main content of the page. This ensures they can skip right to the content.`,
+    tasks: [
+      {
+        text: "Ensure there is a way for keyboard-only users to skip past the navigation bar and anything else, in order to get to the main content of the page.",
+        subtasks: [
+          {text: `For example, have a hidden anchor link labelled "Skip to main content" placed before the navigation bar in the DOM, to take the user straight to the content.`}
+        ]
+      },
+    ]
+  },
+  {
+    name: 'Page Titled',
+    criteria: ['2.4.2'],
+    intent: `This helps users of assistive technologies orient themselves on the site, especially when they have multiple tabs open. If we don't tell the user which page they're on, they may have to read the content to check, which adds far more friction for those with impaired vision.`,
+    tasks: [
+      {
+        text: "Ensure there is a descriptive title for each page of the application that shows up in the tab.",
+        subtasks: [
+          {text: `This applies even to Single-Page Applications.`}
+        ]
+      },
+    ]
+  },
+  {
+    name: 'Meaningful Tab Sequence',
+    criteria: ['2.4.3'],
+    intent: `This helps users of assistive technologies orient themselves on the site, especially when they have multiple tabs open. If we don't tell the user which page they're on, they may have to read the content to check, which adds far more friction for those with impaired vision.`,
+    tasks: [
+      {
+        text: "Ensure the tab order makes sense, helps the user build an appropriate mental model of complex UI, and doesn't switch between different elements or tasks.",
+        subtasks: [
+          {text: `One of the examples given is a site with a form and a sidebar. If pressing <code>TAB</code> skips back and forth between the form and the sidebar, that may technically match the reading order, but doesn't reflect how sighted users actually navigate the page. The user would want to stay on the form, and only navigate to the sidebar when needed.`}
+        ]
+      },
+    ],
+    related: ['1.3.2']
+  },
+  {
+    name: 'Clarify Purpose of Links',
+    criteria: ['2.4.4'],
+    intent: `Users of assistive technologies may use a rotor that lists all available links on the page. Therefore, each link should have a descriptive label to help those users find what links they want to use.`,
+    tasks: [
+      {
+        text: "Ensure links have a descriptive label, either in the copy of the link itself or in an associated label.",
+        subtasks: [
+          {text: `This should communicate the purpose of the link and the content of whatever it links to.`},
+          {text: `Following 2.4.2 (Page Titled), labelling a link with the title of the page it navigates to should be sufficient.`}
+        ]
+      },
+    ]
+  },
+  {
     name: 'Visible Focus',
     criteria: ['2.4.7'],
     intent: `Because keyboard users don't have a cursor, this is how they track where they are on the page.`,
@@ -422,7 +515,7 @@ export const TASKS: Task[] = [
   {
     name: 'Identify User Errors',
     criteria: ['3.3.1'],
-    intent: `This is just good UX, but it's especially important for users with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users, who otherwise won't see that an error has appeared.`,
+    intent: `This is just good UX, but it's especially important for users with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users who otherwise won't see that an error has occurred.`,
     tasks: [
       {text: `Ensure that if there is a problem with user input (in a form, for example), it is identified and explained to the user through text.`},
       {text: `Ensure any text errors that appear are in an <code>aria-live</code> region, so that errors can be announced via screen reader.`}
@@ -431,7 +524,7 @@ export const TASKS: Task[] = [
   {
     name: 'Suggest Corrections',
     criteria: ['3.3.3'],
-    intent: `This is just good UX, but it's especially important for users with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users, who otherwise won't see that an error has appeared.`,
+    intent: `This is just good UX, but it's especially important for users with cognitive disabilities. Using <code>aria-live</code> is necessary for non-sighted users who otherwise won't see that an error has occurred.`,
     tasks: [
       {
         text: `Ensure that if there is a problem with user input (in a form, for example), there are suggestions for how to correct it, if possible.`,

@@ -47,6 +47,7 @@ export class ChecklistComponent implements OnInit {
     this.tasks = TASKS
       .filter(x => !applicableCriteria.length || applicableCriteria.filter(c => x.criteria.includes(c)).length)
       .map(x => ({...x, level: this.criteria[x.criteria[0]] ? this.criteria[x.criteria[0]].level : ''}));
+      // .sort((a, b) => (this.levelPriority[(this.criteria[a.criteria[0]]||{level:'A'}).level] - this.levelPriority[(this.criteria[b.criteria[0]]||{level:'A'}).level]));
 
     this.missingCriteria = CRITERIA.filter(x => x.level !== 'AAA' && !TASKS.find(y => y.criteria.includes(x.id)));
     
@@ -67,6 +68,14 @@ export class ChecklistComponent implements OnInit {
 
   collapseAll() {
     this.tasks.forEach(x => {this.itemStatus[x.name] = this.itemStatus[x.name] || {expanded: false}; this.itemStatus[x.name].expanded = false;});
+  }
+
+  getRelated(task: Task) {
+    return this.tasks.map((x, i) => x.criteria.filter(y => task.related.includes(y)).length ? {name: x.name, id: i} : null).filter(x => x !== null);
+  }
+
+  getEncapsulatedBy(task: Task) {
+    return this.tasks.map((x, i) => x.criteria.filter(y => task.encapsulatedBy.includes(y)).length ? {name: x.name, id: i} : null).filter(x => x !== null);
   }
 
   getApplicableRoles(roles: string[], criteria: string[]) {
