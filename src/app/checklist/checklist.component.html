@@ -33,7 +33,7 @@
 </div>
 
 <div class="pb-5">
-  <div class="task mb-4" *ngFor="let task of tasks; let i = index" [attr.name]="task.name | kebab" [attr.id]="task.name | kebab"
+  <div class="task mb-4" *ngFor="let task of tasks; let i = index; trackBy: trackByName" [attr.name]="task.name | kebab" [attr.id]="task.name | kebab"
       [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
     <div class="d-flex mb-2 small justify-content-between align-items-start">
       <div class="text-secondary w-100">
@@ -45,7 +45,7 @@
         </h3>
         <div *ngIf="getRelated(task).length">
           Related to
-          <span *ngFor="let otherTask of getRelated(task); let i = index">
+          <span *ngFor="let otherTask of getRelated(task); let i = index; trackBy: trackByName">
             <span *ngIf="i > 0"> &middot; </span>
             <a class="text-weight-bold text-secondary" [routerLink]="['/', 'checklist']" fragment="{{otherTask.name | kebab}}">
               {{otherTask.id + 1}}: {{otherTask?.name}}
@@ -54,7 +54,7 @@
         </div>
         <div *ngIf="getEncapsulatedBy(task).length">
           Encapsulated by
-          <span *ngFor="let otherTask of getEncapsulatedBy(task); let i = index">
+          <span *ngFor="let otherTask of getEncapsulatedBy(task); let i = index; trackBy: trackByName">
             <span *ngIf="i > 0"> &middot; </span>
             <a class="text-weight-bold text-secondary" [routerLink]="['/', 'checklist']" fragment="{{otherTask.name | kebab}}">
               {{otherTask.id + 1}}: {{otherTask?.name}}
@@ -84,10 +84,10 @@
 
 <ng-template #full let-task="task">
   <ul>
-    <li *ngFor="let text of task.tasks">
+    <li *ngFor="let text of task.tasks; trackBy: trackByText">
       <span [innerHTML]="text.text"></span>
       <ul *ngIf="text.subtasks">
-        <li *ngFor="let _text of text.subtasks" [innerHTML]="_text.text"></li>
+        <li *ngFor="let _text of text.subtasks; trackBy: trackByText" [innerHTML]="_text.text"></li>
       </ul>
     </li>
   </ul>
@@ -132,7 +132,7 @@
             </a>
           </ng-container>
         </ng-container>
-        <a *ngFor="let link of task.documents" class="mr-2 d-inline-block" target="_blank" href="{{link.href}}">
+        <a *ngFor="let link of task.documents; trackBy: trackByHref" class="mr-2 d-inline-block" target="_blank" href="{{link.href}}">
           <i class="fas fa-fw fa-link"></i> {{link.text}}
         </a>
       </div>

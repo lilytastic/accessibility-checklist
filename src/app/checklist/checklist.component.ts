@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { ROLES } from '../models/roles.model';
 import { CRITERIA } from '../models/criteria.model';
 import { TASKS, Task } from '../models/tasks.model';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-checklist',
@@ -49,7 +50,7 @@ export class ChecklistComponent implements OnInit {
     if (this.tasks.length) {
       this.tasks.push({
         name: 'Lastly...',
-        tasks: [{text: 'Give Spark team a pizza.', subtasks: [{text: `Just cheese is fine.`}]}],
+        tasks: [{text: 'Give Spark team pizza.', subtasks: [{text: `No pineapple.`}]}],
         intent: `I don't understand the question.`,
         criteria: [],
         documents: [{text: 'Technique P20: Acceptable Restaurants (complete list)', href: 'https://www.pizzahut.ca/home'}]
@@ -58,7 +59,17 @@ export class ChecklistComponent implements OnInit {
   }
 
   expandAll() {
-    this.tasks.forEach(x => {this.itemStatus[x.name] = this.itemStatus[x.name] || {expanded: true}; this.itemStatus[x.name].expanded = true;});
+    this.tasks.forEach((x, i) => {
+      if (i < 10) {
+        this.itemStatus[x.name] = this.itemStatus[x.name] || {expanded: true};
+        this.itemStatus[x.name].expanded = true;
+      } else {
+        setTimeout(() => {
+          this.itemStatus[x.name] = this.itemStatus[x.name] || {expanded: true};
+          this.itemStatus[x.name].expanded = true;
+        }, Math.floor(i / 10) * 10);
+      }
+    });
   }
 
   collapseAll() {
@@ -90,6 +101,18 @@ export class ChecklistComponent implements OnInit {
   toggleExpand(name: string) {
     this.itemStatus[name] = this.itemStatus[name] || {expanded: false};
     this.itemStatus[name].expanded = !this.itemStatus[name].expanded;
+  }
+
+  trackByName(index, item) {
+    return item.name;
+  }
+
+  trackByText(index, item) {
+    return item.text;
+  }
+
+  trackByHref(index, item) {
+    return item.href;
   }
 
 }

@@ -86,7 +86,7 @@ export const TASKS: Task[] = [
     tasks: [{text: `Ensure sign language interpretation is provided for all prerecorded audio content in synchronized media.`}]
   },
   {
-    name: 'Meaningful Semantic Markup',
+    name: 'Meaningful Semantics',
     criteria: ['1.3.1'],
     intent: 'Screen readers read the DOM directly. The HTML must communicate meaning without the help of CSS.',
     tasks: [
@@ -95,6 +95,19 @@ export const TASKS: Task[] = [
         subtasks: [
           {text: `This includes <code>h2</code> for second-level headings, <code>a</code> for links, <code>button</code> for buttons, etc.`},
           {text: `Do <b>not</b> rely on tags (<code>h1</code>, <code>h2</code>, <code>h3</code>, etc.), for styling.`}
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Meaningful Structure',
+    criteria: ['1.3.1'],
+    intent: 'Screen readers read the DOM directly. The HTML must communicate meaning without the help of CSS.',
+    tasks: [
+      {
+        text: `Ensure any information, structure, and relationships conveyed through visuals can be programmatically determined, or are available in text.`,
+        subtasks: [
+          {text: `A form with required fields, for example, needs to be conveyed via HTML and ARIA attributes, not just visually.`}
         ]
       }
     ]
@@ -446,7 +459,7 @@ export const TASKS: Task[] = [
   {
     name: 'Meaningful Tab Sequence',
     criteria: ['2.4.3'],
-    intent: `This helps users of assistive technologies orient themselves on the site, especially when they have multiple tabs open. If we don't tell the user which page they're on, they may have to read the content to check, which adds far more friction for those with impaired vision.`,
+    intent: `Because keyboard users don't have a cursor, they have to <code>TAB</code> through each element on a page in sequence. If the sequence is confusing, these users could become frustrated and disoriented.`,
     tasks: [
       {
         text: "Ensure the tab order makes sense, helps the user build an appropriate mental model of complex UI, and doesn't switch between different elements or tasks.",
@@ -488,7 +501,7 @@ export const TASKS: Task[] = [
     intent: `This is just good UX, and it helps all users navigate and understand the content more quickly. This is especially important for those with cognitive disabilities.`,
     tasks: [
       {
-        text: `Ensure the copy for all headings and labels should describe the topic or purpose of the element they're associated with.`
+        text: `Ensure the copy for all headings and labels describe the topic or purpose of the element they're associated with.`
       }
     ]
   },
