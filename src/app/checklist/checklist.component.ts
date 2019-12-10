@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ROLES } from '../models/roles.model';
 import { CRITERIA } from '../models/criteria.model';
-import { TASKS, Task } from '../models/tasks.model';
+import { TASKS, Task, TASKS_MEMERY } from '../models/tasks.model';
 import { timer } from 'rxjs';
 
 @Component({
@@ -46,15 +46,10 @@ export class ChecklistComponent implements OnInit {
       // .sort((a, b) => (this.levelPriority[(this.criteria[a.criteria[0]]||{level:'A'}).level] - this.levelPriority[(this.criteria[b.criteria[0]]||{level:'A'}).level]));
 
     this.missingCriteria = CRITERIA.filter(x => x.level === 'AAA' && !TASKS.find(y => y.criteria.includes(x.id)));
-    
+
     if (this.tasks.length) {
-      this.tasks.push({
-        name: 'Lastly...',
-        tasks: [{text: 'Give Spark team pizza.', subtasks: [{text: `No pineapple.`}]}],
-        intent: `I don't understand the question.`,
-        criteria: [],
-        documents: [{text: 'Technique P20: Acceptable Restaurants (complete list)', href: 'https://www.pizzahut.ca/home'}]
-      });
+      const randomMeme = TASKS_MEMERY[Math.round(Math.random() * (TASKS_MEMERY.length - 1))];
+      this.tasks.push(randomMeme);
     }
   }
 

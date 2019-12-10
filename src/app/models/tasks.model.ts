@@ -9,6 +9,28 @@ export interface Task {
   documents?: {text: string, href: string}[];
 }
 
+export const TASKS_MEMERY: Task[] = [
+  {
+    name: 'Lastly...',
+    tasks: [{ text: 'Give Spark team pizza.', subtasks: [{ text: `No pineapple.` }] }],
+    intent: `I don't understand the question.`,
+    criteria: [],
+    documents: [{ text: 'Technique P20: Acceptable Restaurants (complete list)', href: 'https://www.pizzahut.ca/home' }]
+  },
+  {
+    name: 'With gusto...',
+    tasks: [{ text: 'Get Xeppelin a couch', subtasks: [{ text: `Don't tell Katie.` }] }],
+    intent: `Keep Xeppelin on staff.`,
+    criteria: [],
+    documents: [
+      {
+        text: 'Prior Art: Assembly Diagram for Average Sitting Assistive Device. (en-SW)',
+        href: 'https://www.ikea.com/ca/en/assembly_instructions/friheten-chaise-for-corner-sofa-bed__AA-702253-6_pub.pdf'
+      }
+    ]
+  }
+];
+
 export const TASKS: Task[] = [
   {
     name: 'Descriptive Alt Text',
