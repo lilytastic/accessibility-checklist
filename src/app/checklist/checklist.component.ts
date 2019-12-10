@@ -48,7 +48,7 @@ export class ChecklistComponent implements OnInit {
     this.missingCriteria = CRITERIA.filter(x => x.level === 'AAA' && !TASKS.find(y => y.criteria.includes(x.id)));
 
     if (this.tasks.length) {
-      const randomMeme = TASKS_MEMERY[Math.round(Math.random() * (TASKS_MEMERY.length - 1))];
+      const randomMeme = TASKS_MEMERY[Math.ceil(Math.random() * TASKS_MEMERY.length) - 1];
       this.tasks.push(randomMeme);
     }
   }
