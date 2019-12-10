@@ -28,6 +28,30 @@ export const TASKS_MEMERY: Task[] = [
         href: 'https://www.ikea.com/ca/en/assembly_instructions/friheten-chaise-for-corner-sofa-bed__AA-702253-6_pub.pdf'
       }
     ]
+  },
+  {
+    name: 'Prevent office sadness with...',
+    tasks: [{ text: 'Office puppies', subtasks: [{ text: `I don't even feel sad now just thinking about it.` }] }],
+    intent: `Less sad.`,
+    criteria: [],
+    documents: [
+      {
+        text: 'Supplier List: Contacts and leads.',
+        href: 'https://redemptionpaws.org/puppy-visits/'
+      }
+    ]
+  },
+  {
+    name: 'Prevent office sadness with...',
+    tasks: [{ text: 'Office puppies', subtasks: [{ text: `I don't even feel sad now just thinking about it.` }] }],
+    intent: `Less sad.`,
+    criteria: [],
+    documents: [
+      {
+        text: 'Supplier List: Contacts and leads.',
+        href: 'https://redemptionpaws.org/puppy-visits/'
+      }
+    ]
   }
 ];
 
