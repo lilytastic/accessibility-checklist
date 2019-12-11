@@ -22,6 +22,9 @@ export class ChecklistComponent implements OnInit {
     'AA': 10,
     'AAA': 100,
   }
+  legend = {
+    expanded: false
+  };
 
   constructor() { }
 
@@ -51,6 +54,10 @@ export class ChecklistComponent implements OnInit {
       const randomMeme = TASKS_MEMERY[Math.ceil(Math.random() * TASKS_MEMERY.length) - 1];
       this.tasks.push(randomMeme);
     }
+  }
+
+  toggleLegend() {
+    this.legend.expanded = !this.legend.expanded;
   }
 
   expandAll() {

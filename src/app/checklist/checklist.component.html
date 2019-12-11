@@ -2,7 +2,7 @@
 <a [routerLink]="['/', 'setup']" class="btn p-0 btn-lg btn-link"><i class="fas fa-angle-left"></i>&nbsp; My Roles</a>
 
 <div class="text-center mt-5 mb-4">
-  <h2>My Checklist</h2>
+  <h2>What I Can Do</h2>
   <p class="paragraph" *ngIf="selectedRoles.length; else allRoles">
     This is everything you can do to improve accessibility in our applications, based on your chosen roles
     (<span *ngFor="let role of selectedRolesByName; let i = index; let last = last"><span *ngIf="i > 0 && !last || i > 1">, </span><span *ngIf="i > 0 && last"> and </span>{{role}}</span>).
@@ -14,6 +14,35 @@
       <a [routerLink]="['/', 'setup']">Select one or more roles</a> to see a more personalized list.
     </p>
   </ng-template>
+  <div class="legend__wrapper basic-box">
+    <div class="legend__top">
+      <ul class="legend__list">
+        <li class="legend__item">
+          <div class="legend legend--critical"></div> Level A
+        </li>
+        <li class="legend__item">
+          <div class="legend"></div> Level AA
+        </li>
+        <li class="legend__item">
+          <div class="legend legend--optional"></div> Level AAA (Optional)
+        </li>
+      </ul>
+      <button (click)="toggleLegend()" class="expand-btn ml-2 text-secondary btn btn-sm">
+        <i class="fas fa-fw fa-{{!legend?.expanded ? 'chevron-down' : 'chevron-up'}}"></i>
+      </button>
+    </div>
+    <div class="legend__section small" *ngIf="legend?.expanded">
+      <hr />
+      <label class="label text-secondary">What are these?</label>
+      <div class="pl-4">
+        <span>
+          WCAG assigns each criteria a level. Currently, levels A and AA are <em>required</em>.
+          <br />
+          While technically optional, level AAA is important if you want everyone to have a good experience.
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="pb-3 mt-5 row align-items-center justify-content-between text-center">
@@ -33,7 +62,7 @@
 </div>
 
 <div class="pb-5">
-  <div class="task mb-4" *ngFor="let task of tasks; let i = index; trackBy: trackByName" [attr.name]="task.name | kebab" [attr.id]="task.name | kebab"
+  <div class="task basic-box mb-4" *ngFor="let task of tasks; let i = index; trackBy: trackByName" [attr.name]="task.name | kebab" [attr.id]="task.name | kebab"
       [class.expanded]="itemStatus[task.name]?.expanded" [class.special]="!task.criteria.length" [class.critical]="task?.level === 'A'" [class.optional]="task?.level === 'AAA'">
     <div class="d-flex mb-2 small justify-content-between align-items-start">
       <div class="text-secondary w-100">
@@ -63,7 +92,7 @@
         </div>
       </div>
       <button (click)="toggleExpand(task.name)" class="expand-btn ml-2 text-secondary btn btn-sm">
-        <i class="fas fa-fw fa-{{!itemStatus[task.name]?.expanded ? 'chevron-up' : 'chevron-down'}}"></i>
+        <i class="fas fa-fw fa-{{!itemStatus[task.name]?.expanded ? 'chevron-down' : 'chevron-up'}}"></i>
       </button>
     </div>
     <ng-container *ngTemplateOutlet="(itemStatus[task.name]?.expanded ? full : basic); context: { task: task }">

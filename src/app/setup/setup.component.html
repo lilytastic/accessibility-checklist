@@ -1,13 +1,13 @@
-<div class="w-100 text-right">
-  <a [routerLink]="['/', 'checklist']" class="btn p-0 btn-lg btn-link">My Checklist&nbsp; <i class="fas fa-angle-right"></i></a>
+<div class="w-100 text-right" *ngIf="showHeaderNavigation">
+  <a [routerLink]="['/', 'checklist']" class="btn p-0 btn-lg btn-link">My List&nbsp; <i class="fas fa-angle-right"></i></a>
 </div>
 
 <div class="text-center mt-5 mb-4">
   <h2 class="heading">
-    Check all that apply
+    Want to improve accessibility?
   </h2>
   <p class="paragraph">
-    This will let us personalize your checklist.
+    Knowing where to start can be difficult. We can provide you with a list to get you going.<br />Just select the roles that you think apply to you.
   </p>
 </div>
 
@@ -26,6 +26,6 @@
 </ul>
 
 <div class="text-center mt-5 mb-4" *ngIf="!showHeaderNavigation">
-  <a [class.disabled]="!selectedRoles.length" [routerLink]="['/', 'checklist']" class="btn btn-lg btn-primary">Proceed to My Checklist</a>
+  <a [class.disabled]="!selectedRoles.length" [routerLink]="['/', 'checklist']" class="btn btn-lg btn-primary">Proceed to My List</a>
 </div>
 

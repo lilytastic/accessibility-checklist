@@ -87,6 +87,11 @@ ul, ol {
     padding-left: 20px;
 }
 
+.paragraph {
+    line-height: 1.7em;
+    font-size: 1.2rem;
+}
+
 .task:not(.expanded) {
     ul ul {
         display: none;
